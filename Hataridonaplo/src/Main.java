@@ -1,10 +1,8 @@
-import javax.swing.JFrame;
-
 public class Main {
 
     public static void main(String[] args){
-        JFrame menu = new Menu();
-        menu.setVisible(true);
+        Menu menu = new Menu();
+        menu.start();
     }
     
 }
