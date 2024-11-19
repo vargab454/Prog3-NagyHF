@@ -2,36 +2,55 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class AddMenu extends JFrame {
 
     private Menu mainMenu;
+    private View view;
+
+    JTextArea name;
+    JTextArea place;
+    JTextArea comment;
+    JComboBox<Integer> startYear;
+    JComboBox<Integer> endYear;
+    JComboBox<Integer> startMonth;
+    JComboBox<Integer> endMonth;
+    JComboBox<Integer> startDay;
+    JComboBox<Integer> endDay;
+    JComboBox<Integer> startHour;
+    JComboBox<Integer> endHour;
+    JComboBox<Integer> startMinute;
+    JComboBox<Integer> endMinute;
 
     public AddMenu(Menu m){
         super("Határidőnapló - Eseményfelvétel");
         mainMenu = m;
+        view = new View();
         JButton add = new JButton("Hozzáadás");
+        add.addActionListener(new AddListener());
         JButton back = new JButton("Vissza");
         back.addActionListener(new ExitListener());
         JTextField nameStater = new JTextField("Esemény neve:");
         nameStater.setEditable(false);
         nameStater.setBorder(null);
         nameStater.setHorizontalAlignment(SwingConstants.RIGHT);
-        JTextArea name = new JTextArea();
+        name = new JTextArea();
         name.setLineWrap(true);
         name.setWrapStyleWord(true);
         JTextField placeStater = new JTextField("Esemény helyszíne:");
         placeStater.setEditable(false);
         placeStater.setBorder(null);
         placeStater.setHorizontalAlignment(SwingConstants.RIGHT);
-        JTextArea place = new JTextArea();
+        place = new JTextArea();
         place.setLineWrap(true);
         place.setWrapStyleWord(true);
         JTextField commentStater = new JTextField("Megjegyzés:");
         commentStater.setEditable(false);
         commentStater.setBorder(null);
         commentStater.setHorizontalAlignment(SwingConstants.RIGHT);
-        JTextArea comment = new JTextArea();
+        comment = new JTextArea();
         comment.setLineWrap(true);
         comment.setWrapStyleWord(true);
         JTextField startStater = new JTextField("Esemény kezdete:");
@@ -44,24 +63,24 @@ public class AddMenu extends JFrame {
         endStater.setHorizontalAlignment(SwingConstants.RIGHT);
         Integer[] years = new Integer[20];
         for(int i = 0; i < 20; i++) years[i] = LocalDate.now().getYear() + i;
-        JComboBox<Integer> startYear = new JComboBox<>(years);
-        JComboBox<Integer> endYear = new JComboBox<>(years);
+        startYear = new JComboBox<>(years);
+        endYear = new JComboBox<>(years);
         Integer[] months = new Integer[12];
         for(int i = 0; i < 12; i++) months[i] = i + 1;
-        JComboBox<Integer> startMonth = new JComboBox<>(months);
-        JComboBox<Integer> endMonth = new JComboBox<>(months);
+        startMonth = new JComboBox<>(months);
+        endMonth = new JComboBox<>(months);
         Integer[] days = new Integer[31];
         for(int i = 0; i < 31; i++) days[i] = i + 1;
-        JComboBox<Integer> startDay = new JComboBox<>(days);
-        JComboBox<Integer> endDay = new JComboBox<>(days);
+        startDay = new JComboBox<>(days);
+        endDay = new JComboBox<>(days);
         Integer[] hours = new Integer[24];
         for(int i = 0; i < 24; i++) hours[i] = i;
-        JComboBox<Integer> startHour = new JComboBox<>(hours);
-        JComboBox<Integer> endHour = new JComboBox<>(hours);
+        startHour = new JComboBox<>(hours);
+        endHour = new JComboBox<>(hours);
         Integer[] minutes = new Integer[60];
         for(int i = 0; i < 60; i++) minutes[i] = i;
-        JComboBox<Integer> startMinute = new JComboBox<>(minutes);
-        JComboBox<Integer> endMinute = new JComboBox<>(minutes);
+        startMinute = new JComboBox<>(minutes);
+        endMinute = new JComboBox<>(minutes);
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
         GridBagConstraints constraint = new GridBagConstraints();
@@ -135,7 +154,15 @@ public class AddMenu extends JFrame {
 
     public void close() { setVisible(false); }
 
-    private class ExitListener implements ActionListener{
+    private class AddListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent event){
+            view.addEvent(name.getText(), place.getText(), comment.getText(), (int) startYear.getSelectedItem(), (int) startMonth.getSelectedItem(), (int) startDay.getSelectedItem(), (int) startHour.getSelectedItem(), (int) startMinute.getSelectedItem(), (int) endYear.getSelectedItem(), (int) endMonth.getSelectedItem(), (int) endDay.getSelectedItem(), (int) endHour.getSelectedItem(), (int) endMinute.getSelectedItem());
+            view.write();
+        }
+    }
+
+    private class ExitListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event){
             close();
