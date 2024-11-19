@@ -32,7 +32,7 @@ public class Event {
         endMinute = emi;
     }
 
-    public int compareTo(Event param) {
+    public int compareTo(Event param){
         if(startYear == param.startYear && startMonth == param.startMonth && startDay == param.startDay && startHour == param.startHour && startMinute == param.startMinute) return 0;
         else if(startYear > param.startYear) return 1;
         else if(startYear == param.startYear && startMonth > param.startMonth) return 1;
@@ -40,6 +40,11 @@ public class Event {
         else if(startYear == param.startYear && startMonth == param.startMonth && startDay == param.startDay && startHour > param.startHour) return 1;
         else if(startYear == param.startYear && startMonth == param.startMonth && startDay == param.startDay && startHour == param.startHour && startMinute > param.startMinute) return 1;
         else return -1;
+    }
+
+    public boolean isSame(Event param){
+        if(name.equals(param.name) && place.equals(param.place) && comment.equals(param.comment) && compareTo(param) == 0) return true;
+        else return false;
     }
 
     public String toString() { return "Név: " + name + "\nHelyszín: " + place + "\nKomment: " + comment + "\nKezdo idopont: " + startYear + "." + startMonth + "." + startDay + " " + startHour + ":" + startMinute + "\nZáró idopont: " + endYear + "." + endMonth + "." + endDay + " " + endHour + ":" + endMinute; }

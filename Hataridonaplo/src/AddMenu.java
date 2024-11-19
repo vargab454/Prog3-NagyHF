@@ -2,8 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 public class AddMenu extends JFrame {
 
@@ -157,8 +155,12 @@ public class AddMenu extends JFrame {
     private class AddListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event){
-            view.addEvent(name.getText(), place.getText(), comment.getText(), (int) startYear.getSelectedItem(), (int) startMonth.getSelectedItem(), (int) startDay.getSelectedItem(), (int) startHour.getSelectedItem(), (int) startMinute.getSelectedItem(), (int) endYear.getSelectedItem(), (int) endMonth.getSelectedItem(), (int) endDay.getSelectedItem(), (int) endHour.getSelectedItem(), (int) endMinute.getSelectedItem());
-            view.write();
+            Event newEvent = new Event(name.getText(), place.getText(), comment.getText(), (int) startYear.getSelectedItem(), (int) startMonth.getSelectedItem(), (int) startDay.getSelectedItem(), (int) startHour.getSelectedItem(), (int) startMinute.getSelectedItem(), (int) endYear.getSelectedItem(), (int) endMonth.getSelectedItem(), (int) endDay.getSelectedItem(), (int) endHour.getSelectedItem(), (int) endMinute.getSelectedItem());
+            if(!view.isElement(newEvent)){
+                view.addEvent(newEvent);
+            }else{
+                //popup window, hogy mar van ilyen
+            }
         }
     }
 

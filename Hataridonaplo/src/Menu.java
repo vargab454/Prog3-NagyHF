@@ -5,10 +5,12 @@ import java.awt.event.*;
 public class Menu extends JFrame {
 
     private AddMenu addMenu;
+    private View view;
 
     public Menu(){
         super("Határidőnapló");
         addMenu = new AddMenu(this);
+        view = new View();
         JButton addEvent = new JButton("Esemény felvétele");
         addEvent.setPreferredSize(new Dimension(350, 50));
         addEvent.addActionListener(new AddListener());
@@ -52,6 +54,7 @@ public class Menu extends JFrame {
         @Override
         public void actionPerformed(ActionEvent event){
             //Adatok fileba mentése majd ide kell
+            view.write();
             System.exit(0);
         }
     }
