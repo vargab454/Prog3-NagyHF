@@ -4,29 +4,23 @@ import java.awt.event.*;
 
 public class Menu extends JFrame {
 
-    private JButton addEvent;
-    private JButton modifyEvent;
-    private JButton deleteEvent;
-    private JButton searchEvent;
-    private JButton listEvent;
-    private JButton exit;
     private AddMenu addMenu;
 
     public Menu(){
         super("Határidőnapló");
         addMenu = new AddMenu(this);
-        addEvent = new JButton("Esemény felvétele");
+        JButton addEvent = new JButton("Esemény felvétele");
         addEvent.setPreferredSize(new Dimension(350, 50));
         addEvent.addActionListener(new AddListener());
-        modifyEvent = new JButton("Esemény módosítása");
+        JButton modifyEvent = new JButton("Esemény módosítása");
         modifyEvent.setPreferredSize(new Dimension(350, 50));
-        deleteEvent = new JButton("Esemény törlése");
+        JButton deleteEvent = new JButton("Esemény törlése");
         deleteEvent.setPreferredSize(new Dimension(350, 50));
-        searchEvent = new JButton("Esemény keresése");
+        JButton searchEvent = new JButton("Esemény keresése");
         searchEvent.setPreferredSize(new Dimension(350, 50));
-        listEvent = new JButton("Események listázása");
+        JButton listEvent = new JButton("Események listázása");
         listEvent.setPreferredSize(new Dimension(350, 50));
-        exit = new JButton("Kilépés");
+        JButton exit = new JButton("Kilépés");
         exit.setPreferredSize(new Dimension(350, 50));
         exit.addActionListener(new ExitListener());
         JPanel panel = new JPanel();
