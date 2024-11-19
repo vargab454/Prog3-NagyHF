@@ -155,7 +155,21 @@ public class AddMenu extends JFrame {
     private class AddListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event){
-            Event newEvent = new Event(name.getText(), place.getText(), comment.getText(), (int) startYear.getSelectedItem(), (int) startMonth.getSelectedItem(), (int) startDay.getSelectedItem(), (int) startHour.getSelectedItem(), (int) startMinute.getSelectedItem(), (int) endYear.getSelectedItem(), (int) endMonth.getSelectedItem(), (int) endDay.getSelectedItem(), (int) endHour.getSelectedItem(), (int) endMinute.getSelectedItem());
+            Date start = new Date((int) startYear.getSelectedItem(), (int) startMonth.getSelectedItem(), (int) startDay.getSelectedItem(), (int) startHour.getSelectedItem(), (int) startMinute.getSelectedItem());
+            Date end = new Date((int) endYear.getSelectedItem(), (int) endMonth.getSelectedItem(), (int) endDay.getSelectedItem(), (int) endHour.getSelectedItem(), (int) endMinute.getSelectedItem());
+            if(start.isValid()){
+                //popup window, hogy nem valid a kezdodatum
+                return;
+            }
+            if(end.isValid()){
+                //popup window, hogy nem valid a befejezodatum
+                return;
+            }
+            if(start.compareTo(end) == -1){
+                //popup window, hogy elobb van a befejezes, mint a kezdet
+                return;
+            }
+            Event newEvent = new Event(name.getText(), place.getText(), comment.getText(), start, end);
             if(!view.isElement(newEvent)){
                 view.addEvent(newEvent);
             }else{

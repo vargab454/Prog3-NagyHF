@@ -1,4 +1,3 @@
-
 public class Event {
 
     private String name;
@@ -7,12 +6,12 @@ public class Event {
     private Date start;
     private Date end;
     
-    public Event(String n, String p, String c, int sy, int sm, int sd, int sh, int smi, int ey, int em, int ed, int eh, int emi){
+    public Event(String n, String p, String c, Date s, Date e){
         name = n;
         place = p;
         comment = c;
-        start = new Date(sy, sm, sd, sh, smi);
-        end = new Date(ey, em, ed, eh, emi);
+        start = s;
+        end = e;
     }
 
     //Compares strictly based on startdate
