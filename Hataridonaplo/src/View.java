@@ -28,13 +28,13 @@ public class View {
     }
 
     public void save(String filename){
+        int runNum = 3;
         try{
             PrintWriter pw = new PrintWriter(new FileWriter(filename));
-            pw.write("BEGIN:VCALENDAR\r\nVERSION:2.0\r\nCALSCALE:GREGORIAN\r\nPRODID:-//proba//proba 1.0//EN");
+            pw.write("BEGIN:VCALENDAR\r\nVERSION:2.0\r\nCALSCALE:GREGORIAN\r\nPRODID:-//Hataridonaplo//run " + runNum +"//EN");
             int idx = 1;
             for(Event event : data){
-                System.out.println("\r\nBEGIN:VEVENT\r\nUID:v1-" + idx +"\r\nSUMMARY:" + event.getName() + "\r\nDTSTART:" + event.getStart() + "\r\nDTEND:" + event.getEnd() + "\r\nLOCATION:" + event.getPlace() + "\r\nDESCRIPTION:" + event.getComment() + "\r\nDTSTAMP:20241219T120000Z\r\nEND:VEVENT");
-                pw.write("\r\nBEGIN:VEVENT\r\nUID:v1-" + idx +"\r\nSUMMARY:" + event.getName() + "\r\nDTSTART:" + event.getStart() + "\r\nDTEND:" + event.getEnd() + "\r\nLOCATION:" + event.getPlace() + "\r\nDESCRIPTION:" + event.getComment() + "\r\nDTSTAMP:20241219T120000Z\r\nEND:VEVENT");
+                pw.write(event.toFileFormat(runNum, idx));
                 idx++;
             }
             pw.write("\r\nEND:VCALENDAR");

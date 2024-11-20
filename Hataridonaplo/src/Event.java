@@ -34,5 +34,8 @@ public class Event {
         else return false;
     }
 
+    //For debugging purposes only
     public String toString() { return "Név: " + name + "\nHelyszín: " + place + "\nKomment: " + comment + "\nKezdo idopont: " + start.toString() + "\nZáró idopont: " + end.toString(); }
+
+    public String toFileFormat(int runNum, int idx) { return "\r\nBEGIN:VEVENT\r\nUID:v" + runNum + "-" + idx +"\r\nSUMMARY:" + name + "\r\nDTSTART:" + end.toString() + "\r\nDTEND:" + end.toString() + "\r\nLOCATION:" + place + "\r\nDESCRIPTION:" + comment + "\r\nDTSTAMP:20241219T120000Z\r\nEND:VEVENT";}
 }
