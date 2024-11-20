@@ -8,6 +8,7 @@ public class AddMenu extends JFrame {
 
     private Menu mainMenu;
     private View view;
+    private JFrame jf = this;
 
     JTextArea name;
     JTextArea place;
@@ -160,12 +161,12 @@ public class AddMenu extends JFrame {
             Date end = new Date((int) endYear.getSelectedItem(), (int) endMonth.getSelectedItem(), (int) endDay.getSelectedItem(), (int) endHour.getSelectedItem(), (int) endMinute.getSelectedItem());
             Date now = new Date(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDateTime.now().getHour(), LocalDateTime.now().getMinute());
             Event newEvent = new Event(name.getText(), place.getText(), comment.getText(), start, end);
-            if(name.getText().contains("\n") || place.getText().contains("\n") || comment.getText().contains("\n")) new ErrorPopup("A kitöltendő mezők nem tartalmazhatnak szóközt!");
-            else if(now.compareTo(start) != -1) new ErrorPopup("Már lejárt a megadott dátum, így nem lehet határidő!");
-            else if(!start.isValid()) new ErrorPopup("Nem létezik a dátum, amit a kezdetnek beállított!");
-            else if(!end.isValid()) new ErrorPopup("Nem létezik a dátum, amit a végnek beállított!");
-            else if(end.compareTo(start) != 1) new ErrorPopup("Előbb van az esemény befejezése, mint a kezdete!");
-            else if(view.isElement(newEvent)) new ErrorPopup("Már van pontosan ilyen esemény felvéve!");
+            if(name.getText().contains("\n") || place.getText().contains("\n") || comment.getText().contains("\n")) JOptionPane.showMessageDialog(jf, "A név, helyszín, illetve a megjegyzés mezőkbe nem kerülhet enter!");
+            else if(now.compareTo(start) != -1) JOptionPane.showMessageDialog(jf, "Már lejárt dátumú esemény nem kerülhet felvételre!");
+            else if(!start.isValid()) JOptionPane.showMessageDialog(jf, "Az esemény kezdete nem létező dátumot kíván beállítani!");
+            else if(!end.isValid()) JOptionPane.showMessageDialog(jf, "Az esemény vége nem létező dátumot kíván beállítani!");
+            else if(end.compareTo(start) != 1) JOptionPane.showMessageDialog(jf, "Nem lehet előbb az esemény befejezése, mint a kezdete!");
+            else if(view.isElement(newEvent)) JOptionPane.showMessageDialog(jf, "A felvenni kívánt esemény már része az adatbázisnak!");
             else view.addEvent(newEvent);
         }
     }

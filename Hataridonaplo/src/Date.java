@@ -7,6 +7,8 @@ public class Date {
     private int hour;
     private int minute;
 
+    public Date() {}
+
     public Date(int y, int m, int d, int h, int mi){
         year = y;
         month = m;
@@ -58,5 +60,14 @@ public class Date {
         }else ret += minute;
         ret += "00Z";
         return ret;
+    }
+
+    public Date toDate(String param){
+        int year = Integer.parseInt(param.substring(0, 4));
+        int month = Integer.parseInt(param.substring(4,6));
+        int day = Integer.parseInt(param.substring(6,8));
+        int hour = Integer.parseInt(param.substring(9,11));
+        int minute = Integer.parseInt(param.substring(11, 13));
+        return new Date(year, month, day, hour, minute);
     }
 }

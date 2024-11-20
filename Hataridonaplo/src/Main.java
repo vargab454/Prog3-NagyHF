@@ -1,7 +1,9 @@
 public class Main {
 
     public static void main(String[] args){
-        Menu menu = new Menu();
+        View view = new View();
+        int runNum = view.load("data.ics");
+        Menu menu = new Menu(runNum);
         menu.start();
     }
     

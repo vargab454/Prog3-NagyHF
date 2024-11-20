@@ -6,11 +6,13 @@ public class Menu extends JFrame {
 
     private AddMenu addMenu;
     private View view;
+    private int runNum;
 
-    public Menu(){
+    public Menu(int r){
         super("Határidőnapló");
         addMenu = new AddMenu(this);
         view = new View();
+        runNum = r;
         JButton addEvent = new JButton("Esemény felvétele");
         addEvent.setPreferredSize(new Dimension(350, 50));
         addEvent.addActionListener(new AddListener());
@@ -53,8 +55,7 @@ public class Menu extends JFrame {
     private class ExitListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event){
-            view.write();
-            view.save("data.ics");
+            view.save("data.ics", runNum);
             System.exit(0);
         }
     }
