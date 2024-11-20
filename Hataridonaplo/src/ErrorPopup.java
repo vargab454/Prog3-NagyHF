@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import javax.swing.*;
 
@@ -12,9 +13,12 @@ public class ErrorPopup extends JFrame {
         errorMessage.setEditable(false);
         errorMessage.setBorder(null);
         errorMessage.setBackground(null);
+        errorMessage.setLineWrap(true);
+        errorMessage.setWrapStyleWord(true);
+        errorMessage.setPreferredSize(new Dimension(280, 80));
         JPanel panel = new JPanel();
         panel.add(errorMessage, BorderLayout.WEST);
-        setBounds(800, 550,300, 100);
+        setBounds(800, 550,300, 80);
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);

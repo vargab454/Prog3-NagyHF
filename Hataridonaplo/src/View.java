@@ -1,7 +1,7 @@
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import java.util.*;
 
 public class View {
@@ -27,9 +27,9 @@ public class View {
         }
     }
 
-    public void save(){
+    public void save(String filename){
         try{
-            PrintWriter pw = new PrintWriter(new FileWriter("data.ics"));
+            PrintWriter pw = new PrintWriter(new FileWriter(filename));
             pw.write("BEGIN:VCALENDAR\r\nVERSION:2.0\r\nCALSCALE:GREGORIAN\r\nPRODID:-//proba//proba 1.0//EN");
             int idx = 1;
             for(Event event : data){

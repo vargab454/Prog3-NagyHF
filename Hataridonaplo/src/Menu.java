@@ -54,7 +54,7 @@ public class Menu extends JFrame {
         @Override
         public void actionPerformed(ActionEvent event){
             view.write();
-            view.save();
+            view.save("data.ics");
             System.exit(0);
         }
     }

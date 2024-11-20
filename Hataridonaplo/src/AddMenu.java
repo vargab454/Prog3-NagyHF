@@ -160,23 +160,13 @@ public class AddMenu extends JFrame {
             Date end = new Date((int) endYear.getSelectedItem(), (int) endMonth.getSelectedItem(), (int) endDay.getSelectedItem(), (int) endHour.getSelectedItem(), (int) endMinute.getSelectedItem());
             Date now = new Date(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDateTime.now().getHour(), LocalDateTime.now().getMinute());
             Event newEvent = new Event(name.getText(), place.getText(), comment.getText(), start, end);
-            if(now.compareTo(start) != -1){
-                new ErrorPopup("Már lejárt a megadott dátum, így nem lehet határidő!");
-            }
-            else if(!start.isValid()){
-                new ErrorPopup("Nem létezik a dátum, amit a kezdetnek beállított!");
-            }
-            else if(!end.isValid()){
-                new ErrorPopup("Nem létezik a dátum, amit a végnek beállított!");
-            }
-            else if(end.compareTo(start) != 1){
-                new ErrorPopup("Előbb van az esemény befejezése, mint a kezdete!");
-            }
-            else if(view.isElement(newEvent)){
-                new ErrorPopup("Már van pontosan ilyen esemény felvéve!");
-            }else{
-                view.addEvent(newEvent);
-            }
+            if(name.getText().contains("\n") || place.getText().contains("\n") || comment.getText().contains("\n")) new ErrorPopup("A kitöltendő mezők nem tartalmazhatnak szóközt!");
+            else if(now.compareTo(start) != -1) new ErrorPopup("Már lejárt a megadott dátum, így nem lehet határidő!");
+            else if(!start.isValid()) new ErrorPopup("Nem létezik a dátum, amit a kezdetnek beállított!");
+            else if(!end.isValid()) new ErrorPopup("Nem létezik a dátum, amit a végnek beállított!");
+            else if(end.compareTo(start) != 1) new ErrorPopup("Előbb van az esemény befejezése, mint a kezdete!");
+            else if(view.isElement(newEvent)) new ErrorPopup("Már van pontosan ilyen esemény felvéve!");
+            else view.addEvent(newEvent);
         }
     }
 
