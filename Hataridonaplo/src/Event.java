@@ -14,16 +14,6 @@ public class Event {
         end = e;
     }
 
-    public String getName() { return name; }
-
-    public String getPlace() { return place; }
-
-    public String getComment() { return comment; }
-    
-    public String getStart() { return start.toString(); }
-
-    public String getEnd() { return end.toString(); }
-
     //Compares strictly based on startdate
     public int compareTo(Event param){
         return start.compareTo(param.start);
