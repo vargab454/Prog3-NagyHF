@@ -7,11 +7,11 @@ import java.io.PrintWriter;
 
 import java.util.*;
 
-public class View {
+public class Controller {
 
     private static List<Event> data = new LinkedList<>();
 
-    public View() { /* Because data is static */}
+    public Controller() {/* Because data is static */}
     
     public int getSize() { return data.size(); }
 
@@ -24,6 +24,7 @@ public class View {
         return false;
     }
 
+    //For debugging purposes only
     public void write(){
         for(Event event : data){
             System.out.println(event.toString());
@@ -64,7 +65,6 @@ public class View {
                 for(int i = 0; i < 2; i++) currentLine = br.readLine();
                 data.add(new Event(name, place, comment, start, end));
             }
-            br.readLine();
             br.close();
         }catch(FileNotFoundException e) { System.out.println("Nem létezik a kívánt fájl."); }
         catch(IOException e) { System.out.println("Sikertelen beolvasás."); }

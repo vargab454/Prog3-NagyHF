@@ -5,13 +5,13 @@ import java.awt.event.*;
 public class Menu extends JFrame {
 
     private AddMenu addMenu;
-    private View view;
+    private Controller view;
     private int runNum;
 
     public Menu(int r){
         super("Határidőnapló");
         addMenu = new AddMenu(this);
-        view = new View();
+        view = new Controller();
         runNum = r;
         JButton addEvent = new JButton("Esemény felvétele");
         addEvent.setPreferredSize(new Dimension(350, 50));

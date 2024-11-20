@@ -63,11 +63,11 @@ public class Date {
     }
 
     public Date toDate(String param){
-        int year = Integer.parseInt(param.substring(0, 4));
-        int month = Integer.parseInt(param.substring(4,6));
-        int day = Integer.parseInt(param.substring(6,8));
-        int hour = Integer.parseInt(param.substring(9,11));
-        int minute = Integer.parseInt(param.substring(11, 13));
-        return new Date(year, month, day, hour, minute);
+        int myear = Integer.parseInt(param.substring(0, 4));
+        int mmonth = Integer.parseInt(param.substring(4,6));
+        int mday = Integer.parseInt(param.substring(6,8));
+        int mhour = Integer.parseInt(param.substring(9,11));
+        int mminute = Integer.parseInt(param.substring(11, 13));
+        return new Date(myear, mmonth, mday, mhour, mminute);
     }
 }

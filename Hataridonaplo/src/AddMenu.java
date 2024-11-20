@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 public class AddMenu extends JFrame {
 
     private Menu mainMenu;
-    private View view;
+    private Controller view;
     private JFrame jf = this;
 
     JTextArea name;
@@ -27,7 +27,7 @@ public class AddMenu extends JFrame {
     public AddMenu(Menu m){
         super("Határidőnapló - Eseményfelvétel");
         mainMenu = m;
-        view = new View();
+        view = new Controller();
         JButton add = new JButton("Hozzáadás");
         add.addActionListener(new AddListener());
         JButton back = new JButton("Vissza");
