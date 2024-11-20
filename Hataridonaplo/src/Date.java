@@ -58,7 +58,7 @@ public class Date {
             ret += '0';
             ret += minute;
         }else ret += minute;
-        ret += "00Z";
+        ret += "00";
         return ret;
     }
 

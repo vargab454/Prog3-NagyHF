@@ -35,7 +35,7 @@ public class Controller {
         int runNum = r + 1;
         try{
             PrintWriter pw = new PrintWriter(new FileWriter(filename));
-            pw.write("BEGIN:VCALENDAR\r\nVERSION:2.0\r\nCALSCALE:GREGORIAN\r\nPRODID:-//Hataridonaplo//run " + runNum +"//EN");
+            pw.write("BEGIN:VCALENDAR\r\nVERSION:2.0\r\nCALSCALE:GREGORIAN\r\nPRODID:-//Hataridonaplo//run " + runNum + "//EN\r\nBEGIN:VTIMEZONE\r\nTZID:UTC+01\r\nBEGIN:STANDARD\r\nDTSTART:19700101T000000\r\nTZOFFSETFROM:+0100\r\nTZOFFSETTO:+0100\r\nTZNAME:UTC+1\r\nEND:STANDARD\r\nEND:VTIMEZONE");
             int idx = 1;
             for(Event event : data){
                 pw.write(event.toFileFormat(runNum, idx));
@@ -53,13 +53,14 @@ public class Controller {
             String currentLine = "";
             for(int i = 0; i < 4; i++) currentLine = br.readLine();
             runNum = Integer.parseInt(currentLine.substring(29, currentLine.length() - 4));
+            for(int i = 0; i < 9; i++) currentLine = br.readLine();
             while(!br.readLine().equals("END:VCALENDAR")){
                 for(int i = 0; i < 2; i++) currentLine = br.readLine();
                 String name = currentLine.substring(8);
                 Date start = new Date();
-                start = start.toDate(br.readLine().substring(8));
+                start = start.toDate(br.readLine().substring(20));
                 Date end = new Date();
-                end = end.toDate(br.readLine().substring(6));
+                end = end.toDate(br.readLine().substring(18));
                 String place = br.readLine().substring(9);
                 String comment = br.readLine().substring(12);
                 for(int i = 0; i < 2; i++) currentLine = br.readLine();
