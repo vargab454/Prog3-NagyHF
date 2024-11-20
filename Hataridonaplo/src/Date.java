@@ -37,6 +37,26 @@ public class Date {
     }
 
     public String toString(){
-        return year + "." + month + "." + day + " " + hour + ":" + minute;
+        String ret = "";
+        ret += year;
+        if(month < 10){
+            ret += '0';
+            ret += month;
+        }else ret += month;
+        if(day < 10){
+            ret += '0';
+            ret += day;
+        }else ret += day;
+        ret += 'T';
+        if(hour < 10){
+            ret += '0';
+            ret += hour;
+        }else ret += hour;
+        if(minute < 10){
+            ret += '0';
+            ret += minute;
+        }else ret += minute;
+        ret += "00Z";
+        return ret;
     }
 }

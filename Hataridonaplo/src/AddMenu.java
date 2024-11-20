@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class AddMenu extends JFrame {
 
@@ -157,23 +158,24 @@ public class AddMenu extends JFrame {
         public void actionPerformed(ActionEvent event){
             Date start = new Date((int) startYear.getSelectedItem(), (int) startMonth.getSelectedItem(), (int) startDay.getSelectedItem(), (int) startHour.getSelectedItem(), (int) startMinute.getSelectedItem());
             Date end = new Date((int) endYear.getSelectedItem(), (int) endMonth.getSelectedItem(), (int) endDay.getSelectedItem(), (int) endHour.getSelectedItem(), (int) endMinute.getSelectedItem());
-            if(start.isValid()){
-                //popup window, hogy nem valid a kezdodatum
-                return;
-            }
-            if(end.isValid()){
-                //popup window, hogy nem valid a befejezodatum
-                return;
-            }
-            if(start.compareTo(end) == -1){
-                //popup window, hogy elobb van a befejezes, mint a kezdet
-                return;
-            }
+            Date now = new Date(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDateTime.now().getHour(), LocalDateTime.now().getMinute());
             Event newEvent = new Event(name.getText(), place.getText(), comment.getText(), start, end);
-            if(!view.isElement(newEvent)){
-                view.addEvent(newEvent);
+            if(now.compareTo(start) != -1){
+                new ErrorPopup("Már lejárt a megadott dátum, így nem lehet határidő!");
+            }
+            else if(!start.isValid()){
+                new ErrorPopup("Nem létezik a dátum, amit a kezdetnek beállított!");
+            }
+            else if(!end.isValid()){
+                new ErrorPopup("Nem létezik a dátum, amit a végnek beállított!");
+            }
+            else if(end.compareTo(start) != 1){
+                new ErrorPopup("Előbb van az esemény befejezése, mint a kezdete!");
+            }
+            else if(view.isElement(newEvent)){
+                new ErrorPopup("Már van pontosan ilyen esemény felvéve!");
             }else{
-                //popup window, hogy mar van ilyen
+                view.addEvent(newEvent);
             }
         }
     }

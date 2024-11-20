@@ -53,8 +53,8 @@ public class Menu extends JFrame {
     private class ExitListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event){
-            //Adatok fileba mentése majd ide kell
             view.write();
+            view.save();
             System.exit(0);
         }
     }
