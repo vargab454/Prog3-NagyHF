@@ -1,3 +1,5 @@
+package code;
+
 public class Event {
 
     private String name;
@@ -20,8 +22,7 @@ public class Event {
     }
 
     public boolean isSame(Event param){
-        if(name.equals(param.name) && place.equals(param.place) && comment.equals(param.comment) && compareTo(param) == 0) return true;
-        else return false;
+        return (name.equals(param.name) && place.equals(param.place) && comment.equals(param.comment) && compareTo(param) == 0);
     }
 
     //For debugging purposes only

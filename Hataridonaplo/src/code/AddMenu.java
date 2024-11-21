@@ -1,3 +1,5 @@
+package code;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -7,7 +9,7 @@ import java.time.LocalDateTime;
 public class AddMenu extends JFrame {
 
     private Menu mainMenu;
-    private Controller view;
+    private Controller controller;
     private JFrame jf = this;
 
     JTextArea name;
@@ -27,7 +29,7 @@ public class AddMenu extends JFrame {
     public AddMenu(Menu m){
         super("Határidőnapló - Eseményfelvétel");
         mainMenu = m;
-        view = new Controller();
+        controller = new Controller();
         JButton add = new JButton("Hozzáadás");
         add.addActionListener(new AddListener());
         JButton back = new JButton("Vissza");
@@ -166,8 +168,8 @@ public class AddMenu extends JFrame {
             else if(!start.isValid()) JOptionPane.showMessageDialog(jf, "Az esemény kezdete nem létező dátumot kíván beállítani!");
             else if(!end.isValid()) JOptionPane.showMessageDialog(jf, "Az esemény vége nem létező dátumot kíván beállítani!");
             else if(end.compareTo(start) != 1) JOptionPane.showMessageDialog(jf, "Nem lehet előbb az esemény befejezése, mint a kezdete!");
-            else if(view.isElement(newEvent)) JOptionPane.showMessageDialog(jf, "A felvenni kívánt esemény már része az adatbázisnak!");
-            else view.addEvent(newEvent);
+            else if(controller.isElement(newEvent)) JOptionPane.showMessageDialog(jf, "A felvenni kívánt esemény már része az adatbázisnak!");
+            else controller.addEvent(newEvent);
         }
     }
 

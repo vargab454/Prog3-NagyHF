@@ -1,3 +1,5 @@
+package code;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -5,13 +7,13 @@ import java.awt.event.*;
 public class Menu extends JFrame {
 
     private AddMenu addMenu;
-    private Controller view;
+    private Controller controller;
     private int runNum;
 
     public Menu(int r){
         super("Határidőnapló");
         addMenu = new AddMenu(this);
-        view = new Controller();
+        controller = new Controller();
         runNum = r;
         JButton addEvent = new JButton("Esemény felvétele");
         addEvent.setPreferredSize(new Dimension(350, 50));
@@ -55,7 +57,7 @@ public class Menu extends JFrame {
     private class ExitListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event){
-            view.save("data.ics", runNum);
+            controller.write("src/data.ics", runNum);
             System.exit(0);
         }
     }

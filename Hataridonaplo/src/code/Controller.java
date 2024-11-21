@@ -1,13 +1,19 @@
+package code;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Serializable;
 
-import java.util.*;
+import java.util.List;
+import java.util.LinkedList;
 
-public class Controller {
+
+
+public class Controller implements Serializable {
 
     private static List<Event> data = new LinkedList<>();
 
@@ -31,7 +37,7 @@ public class Controller {
         }
     }
 
-    public void save(String filename, int r){
+    public void write(String filename, int r){
         int runNum = r + 1;
         try{
             PrintWriter pw = new PrintWriter(new FileWriter(filename));
@@ -46,7 +52,7 @@ public class Controller {
         }catch(IOException e){ System.out.println("Sikertelen kiiratás."); }
     }
 
-    public int load(String filename){
+    public int read(String filename){
         int runNum = 0;
         try{
             BufferedReader br = new BufferedReader(new FileReader(filename));
