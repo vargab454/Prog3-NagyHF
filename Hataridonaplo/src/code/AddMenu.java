@@ -11,6 +11,7 @@ public class AddMenu extends JFrame {
     private Menu mainMenu;
     private Controller controller;
     private JFrame jf = this;
+    private int runNum;
 
     JTextArea name;
     JTextArea place;
@@ -26,9 +27,10 @@ public class AddMenu extends JFrame {
     JComboBox<Integer> startMinute;
     JComboBox<Integer> endMinute;
 
-    public AddMenu(Menu m){
+    public AddMenu(Menu m, int r){
         super("Határidőnapló - Eseményfelvétel");
         mainMenu = m;
+        runNum = r;
         controller = new Controller();
         JButton add = new JButton("Hozzáadás");
         add.addActionListener(new AddListener());
@@ -149,7 +151,7 @@ public class AddMenu extends JFrame {
         setBounds(700, 400, 500, 400);
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        add(panel, BorderLayout.CENTER);
+        add(panel);
     }
 
     public void start() { setVisible(true); }
@@ -168,8 +170,9 @@ public class AddMenu extends JFrame {
             else if(!start.isValid()) JOptionPane.showMessageDialog(jf, "Az esemény kezdete nem létező dátumot kíván beállítani!");
             else if(!end.isValid()) JOptionPane.showMessageDialog(jf, "Az esemény vége nem létező dátumot kíván beállítani!");
             else if(end.compareTo(start) != 1) JOptionPane.showMessageDialog(jf, "Nem lehet előbb az esemény befejezése, mint a kezdete!");
-            else if(controller.isElement(newEvent)) JOptionPane.showMessageDialog(jf, "A felvenni kívánt esemény már része az adatbázisnak!");
-            else controller.addEvent(newEvent);
+            else if(controller.isElementOfModel(newEvent)) JOptionPane.showMessageDialog(jf, "A felvenni kívánt esemény már része az adatbázisnak!");
+            else controller.addEventToModel(newEvent);
+            controller.writeModel("src/data.ics", runNum); //Safety save as stated in specification
         }
     }
 
