@@ -16,6 +16,8 @@ public class Event {
         end = e;
     }
 
+    public Date getEnd() { return end; }
+
     //Compares strictly based on startdate
     public int compareTo(Event param){
         return start.compareTo(param.start);

@@ -54,7 +54,6 @@ public class SearchMenu extends JFrame {
         constraint.weighty = 0.5;
         constraint.gridx = 0;
         constraint.gridy = 0;
-        constraint.gridwidth = 1;
         panel.add(searchStater, constraint);
         constraint.gridx = 1;
         panel.add(searchValue, constraint);
@@ -84,7 +83,7 @@ public class SearchMenu extends JFrame {
         @Override
         public void actionPerformed(ActionEvent event){
             String searched = searchValue.getText();
-            JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownNameCompare(searched)), "Azon események, melyek neve tartalmazza a '" + searched + "' tagot", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownNameCompare(searched)), "Azon események, melyek neve tartalmazza a '" + searched + "'részletet", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 

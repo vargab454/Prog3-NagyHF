@@ -27,7 +27,7 @@ public class AddMenu extends JFrame {
     JComboBox<Integer> endMinute;
 
     public AddMenu(Menu m, int r){
-        super("Határidőnapló - Eseményfelvétel");
+        super("Határidőnapló - Esemény felvétele");
         mainMenu = m;
         runNum = r;
         controller = new Controller();

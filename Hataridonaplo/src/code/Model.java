@@ -7,7 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Serializable;
-
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.LinkedList;
 
@@ -22,6 +22,23 @@ public class Model implements Serializable {
     public void addEvent(Event event) { data.add(event); }
 
     public List<Event> getData() { return data; }
+
+    public int deletePastEvents() {
+        int deletedNum = 0;
+        LocalDateTime now = LocalDateTime.now();
+        Date myNow = new Date(now.getYear(), now.getMonthValue(), now.getDayOfMonth(), now.getHour(), now.getMinute());
+        List<Event> tempData = new LinkedList<>();
+        tempData.addAll(data);
+        for(Event event : data){
+            if(event.getEnd().compareTo(myNow) == -1){
+                tempData.remove(event);
+                deletedNum++;
+            }
+        }
+        data.clear();
+        data.addAll(tempData);
+        return deletedNum;
+    }
 
     public void write(String filename, int r){
         int runNum = r + 1;

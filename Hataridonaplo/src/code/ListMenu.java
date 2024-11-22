@@ -5,7 +5,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.time.LocalDate;
+import java.time.DayOfWeek;
 import java.time.Year;
 
 import javax.swing.ImageIcon;
@@ -120,16 +122,30 @@ public class ListMenu extends JFrame {
             int monthParam = (int) month.getSelectedItem();
             int dayParam = (int) day.getSelectedItem();
             Date date1 = new Date(yearParam, monthParam, dayParam, 0, 0);
-            if(!date1.isValid()) { JOptionPane.showMessageDialog(null, "A beállított dátum nem létezik!"); return; }
+            if(!date1.isValid()) { JOptionPane.showMessageDialog(null, "A kiválasztott dátum nem létezik!"); return; }
             Date date2 = new Date(yearParam, monthParam, dayParam, 23, 59);
-            JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownBetweenDates(date1, date2)), "A keresett intervallumba eső események", JOptionPane.INFORMATION_MESSAGE);
+            controller.sortData();
+            JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownBetweenDates(date1, date2)), "A kívánt intervallumba eső események", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
     private class SearchWeekListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event){
-
+            int yearParam = (int) year.getSelectedItem();
+            int monthParam = (int) month.getSelectedItem();
+            int dayParam = (int) day.getSelectedItem();
+            Date givenDate = new Date(yearParam, monthParam, dayParam, 0, 0);
+            if(!givenDate.isValid()) { JOptionPane.showMessageDialog(null, "A beállított dátum nem létezik!"); return; }
+            LocalDate given = LocalDate.of(yearParam, monthParam, dayParam);
+            LocalDate end = given;
+            while(end.getDayOfWeek() != DayOfWeek.SUNDAY) end = end.plusDays(1);
+            LocalDate start = given;
+            while(start.getDayOfWeek() != DayOfWeek.MONDAY) start = start.minusDays(1);
+            Date date1 = new Date(start.getYear(), start.getMonthValue(), start.getDayOfMonth(), 0, 0);
+            Date date2 = new Date(end.getYear(), end.getMonthValue(), end.getDayOfMonth(), 23, 59);
+            controller.sortData();
+            JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownBetweenDates(date1, date2)), "A keresett intervallumba eső események", JOptionPane.INFORMATION_MESSAGE);   
         }
     }
 
@@ -142,6 +158,7 @@ public class ListMenu extends JFrame {
             if(!givenDate.isValid()) { JOptionPane.showMessageDialog(null, "A beállított dátum nem létezik!"); return; }
             Date date1 = new Date(yearParam, monthParam, 1, 0, 0);
             Date date2 = new Date(yearParam, monthParam, getMaxDay(yearParam, monthParam), 0, 0);
+            controller.sortData();
             JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownBetweenDates(date1, date2)), "A keresett intervallumba eső események", JOptionPane.INFORMATION_MESSAGE);
         }
     }

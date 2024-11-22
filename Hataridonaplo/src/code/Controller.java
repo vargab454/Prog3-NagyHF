@@ -29,6 +29,14 @@ public class Controller implements Serializable {
         return false;
     }
 
+    public int deletePastEventsFromModel(){
+        return model.deletePastEvents();
+    }
+
+    public void sortData(){
+        model.getData().sort(Event::compareTo);
+    }
+
     public List<ShownEvent> toShown(){
         List<ShownEvent> returnData = new LinkedList<>();
         for(Event event : model.getData()){

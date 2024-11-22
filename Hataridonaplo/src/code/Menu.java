@@ -7,6 +7,7 @@ import java.awt.event.*;
 public class Menu extends JFrame {
 
     private AddMenu addMenu;
+    private DeleteMenu deleteMenu;
     private SearchMenu searchMenu;
     private ListMenu listMenu;
     private Controller controller;
@@ -14,17 +15,19 @@ public class Menu extends JFrame {
 
     public Menu(int r){
         super("Határidőnapló");
-        addMenu = new AddMenu(this, r);
+        runNum = r;
+        addMenu = new AddMenu(this, runNum);
+        deleteMenu = new DeleteMenu(this, runNum);
         searchMenu = new SearchMenu(this);
         listMenu = new ListMenu(this);
         controller = new Controller();
-        runNum = r;
         JButton addEvent = new JButton("Esemény felvétele");
         addEvent.addActionListener(new AddListener());
         addEvent.setPreferredSize(new Dimension(300, 50));
         JButton modifyEvent = new JButton("Esemény módosítása");
         modifyEvent.setPreferredSize(new Dimension(400, 50));
         JButton deleteEvent = new JButton("Esemény törlése");
+        deleteEvent.addActionListener(new DeleteListener());
         deleteEvent.setPreferredSize(new Dimension(400, 50));
         JButton searchEvent = new JButton("Esemény keresése");
         searchEvent.addActionListener(new SearchListener());
@@ -70,6 +73,14 @@ public class Menu extends JFrame {
         public void actionPerformed(ActionEvent event){
             close();
             addMenu.start();
+        }
+    }
+
+    private class DeleteListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent event){
+            close();
+            deleteMenu.start();
         }
     }
 
