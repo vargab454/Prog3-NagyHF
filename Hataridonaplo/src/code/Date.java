@@ -40,6 +40,22 @@ public class Date {
     }
 
     public String toString(){
+        String monthOut = "";
+        String dayOut = "";
+        String hourOut = "";
+        String minuteOut = "";
+        if(month < 10) monthOut = "0";
+        monthOut += month;
+        if(day < 10) dayOut = "0";
+        dayOut += day;
+        if(hour < 10) hourOut = "0";
+        hourOut += hour;
+        if(minute < 10) minuteOut = "0";
+        minuteOut += minute;
+        return year + "." + monthOut + "." + dayOut + " " + hourOut + ":" + minuteOut;
+    }
+
+    public String toFileFormatString(){
         String ret = "";
         ret += year;
         if(month < 10){

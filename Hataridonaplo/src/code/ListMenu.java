@@ -90,6 +90,7 @@ public class ListMenu extends JFrame {
         panel.add(back, constraint);
         setBounds(700, 400, 500, 400);
         setResizable(false);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         add(panel);
     }

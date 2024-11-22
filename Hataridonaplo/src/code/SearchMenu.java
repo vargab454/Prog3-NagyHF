@@ -8,46 +8,50 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import java.util.List;
 
 public class SearchMenu extends JFrame {
 
     private Menu mainMenu;
     private Controller controller;
-    private int runNum;
 
     private JTextArea searchValue;
 
-    public SearchMenu(Menu m, int r){
+    public SearchMenu(Menu m){
         super("Határidőnapló - Esemény keresése");
         mainMenu = m;
-        runNum = r;
         controller = new Controller();
         JTextField searchStater = new JTextField("Keresett érték:");
         searchStater.setEditable(false);
         searchStater.setBorder(null);
         searchStater.setHorizontalAlignment(SwingConstants.CENTER);
+        searchStater.setPreferredSize(new Dimension(100, 60));
         searchValue = new JTextArea();
         searchValue.setLineWrap(true);
         searchValue.setWrapStyleWord(true);
+        searchValue.setPreferredSize(new Dimension(300, 60));
         JButton searchName = new JButton("Keresés név alapján");
         searchName.addActionListener(new SearchNameListener());
-        searchName.setPreferredSize(new Dimension(250, 60));
+        searchName.setPreferredSize(new Dimension(400, 60));
         JButton searchPlace = new JButton("Keresés helyszín alapján");
-        searchPlace.setPreferredSize(new Dimension(250, 60));
+        searchPlace.setPreferredSize(new Dimension(400, 60));
         JButton searchComment = new JButton("Keresés megjegyzés alapján");
-        searchComment.setPreferredSize(new Dimension(250, 60));
+        searchComment.setPreferredSize(new Dimension(400, 60));
         JButton back = new JButton("Vissza");
-        back.setPreferredSize(new Dimension(250, 60));
+        back.setPreferredSize(new Dimension(400, 60));
         back.addActionListener(new ExitListener());
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
         GridBagConstraints constraint = new GridBagConstraints();
         constraint.fill = GridBagConstraints.HORIZONTAL;
-        constraint.weightx = 0.5;
         constraint.weighty = 0.5;
         constraint.gridx = 0;
         constraint.gridy = 0;
@@ -67,6 +71,7 @@ public class SearchMenu extends JFrame {
         panel.add(back, constraint);
         setBounds(700, 400, 500, 400);
         setResizable(false);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         add(panel);
     }
@@ -78,7 +83,7 @@ public class SearchMenu extends JFrame {
     private class SearchNameListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event){
-
+            JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShown()), "A keresésre kapott találatok", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 

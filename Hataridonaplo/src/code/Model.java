@@ -18,17 +18,10 @@ public class Model implements Serializable {
     private static List<Event> data = new LinkedList<>();
 
     public Model() {/* Because data is static */}
-    
-    public int getSize() { return data.size(); }
 
     public void addEvent(Event event) { data.add(event); }
 
-    public boolean isElement(Event param){
-        for(Event event : data){
-            if(event.isSame(param)) return true;
-        }
-        return false;
-    }
+    public List<Event> getData() { return data; }
 
     //For debugging purposes only
     public void writeTest(){

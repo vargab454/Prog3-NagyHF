@@ -15,7 +15,7 @@ public class Menu extends JFrame {
     public Menu(int r){
         super("Határidőnapló");
         addMenu = new AddMenu(this, r);
-        searchMenu = new SearchMenu(this, r);
+        searchMenu = new SearchMenu(this);
         listMenu = new ListMenu(this);
         controller = new Controller();
         runNum = r;
@@ -56,6 +56,7 @@ public class Menu extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setBounds(700, 400, 500, 400);
         setResizable(false);
+        setLocationRelativeTo(null);
         add(panel);
     }
 
