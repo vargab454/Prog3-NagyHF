@@ -6,11 +6,13 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.time.Year;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -20,9 +22,9 @@ public class ListMenu extends JFrame {
     private Menu mainMenu;
     private Controller controller;
 
-    private JComboBox year;
-    private JComboBox month;
-    private JComboBox day;
+    private JComboBox<Integer> year;
+    private JComboBox<Integer> month;
+    private JComboBox<Integer> day;
 
     public ListMenu(Menu m){
         super("Határidőnapló - Események listázása");
@@ -50,11 +52,14 @@ public class ListMenu extends JFrame {
         for(int i = 0; i < 31; i++) days[i] = i + 1;
         day = new JComboBox<>(days);
         JButton searchDay = new JButton("Adott nap listázása");
+        searchDay.addActionListener(new SearchDayListener());
         searchDay.setPreferredSize(new Dimension(200, 40));
         JButton searchWeek = new JButton("Adott hét listázása");
+        searchWeek.addActionListener(new SearchWeekListener());
         searchWeek.setPreferredSize(new Dimension(200, 40));
         JButton searchMonth = new JButton("Adott hónap listázása");
         searchMonth.setPreferredSize(new Dimension(200, 40));
+        searchMonth.addActionListener(new SearchMonthListener());
         JButton back = new JButton("Vissza");
         back.setPreferredSize(new Dimension(200, 40));
         back.addActionListener(new ExitListener());
@@ -100,6 +105,46 @@ public class ListMenu extends JFrame {
     public void start() { setVisible(true); }
 
     public void close() { setVisible(false); }
+
+    public int getMaxDay(int year, int month){
+        if((month == 4 || month == 6 || month == 9 || month == 11) ) return 31;
+        else if(month == 2 && Year.of(year).isLeap()) return 29;
+        else if (month == 2 && !Year.of(year).isLeap()) return 28;
+        else return 30;
+    }
+
+    private class SearchDayListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent event){
+            int yearParam = (int) year.getSelectedItem();
+            int monthParam = (int) month.getSelectedItem();
+            int dayParam = (int) day.getSelectedItem();
+            Date date1 = new Date(yearParam, monthParam, dayParam, 0, 0);
+            if(!date1.isValid()) { JOptionPane.showMessageDialog(null, "A beállított dátum nem létezik!"); return; }
+            Date date2 = new Date(yearParam, monthParam, dayParam, 23, 59);
+            JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownBetweenDates(date1, date2)), "A keresett intervallumba eső események", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    private class SearchWeekListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent event){
+
+        }
+    }
+
+    private class SearchMonthListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent event){
+            int yearParam = (int) year.getSelectedItem();
+            int monthParam = (int) month.getSelectedItem();
+            Date givenDate = new Date(yearParam, monthParam, (int) day.getSelectedItem(), 0, 0);
+            if(!givenDate.isValid()) { JOptionPane.showMessageDialog(null, "A beállított dátum nem létezik!"); return; }
+            Date date1 = new Date(yearParam, monthParam, 1, 0, 0);
+            Date date2 = new Date(yearParam, monthParam, getMaxDay(yearParam, monthParam), 0, 0);
+            JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownBetweenDates(date1, date2)), "A keresett intervallumba eső események", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
 
     private class ExitListener implements ActionListener {
         @Override

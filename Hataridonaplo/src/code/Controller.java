@@ -55,6 +55,14 @@ public class Controller implements Serializable {
         return returnData;
     }
 
+    public List<ShownEvent> toShownBetweenDates(Date param1, Date param2){
+        List<ShownEvent> returnData = new LinkedList<>();
+        for(Event event : model.getData()){
+            if(event.isActiveBetween(param1, param2)) returnData.add(event.toShownEvent());
+        }
+        return returnData;
+    }
+
     public List<ShownEvent> toShownCommentCompare(String comment){
         List<ShownEvent> returnData = new LinkedList<>();
         for(Event event : model.getData()){
