@@ -6,17 +6,14 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-
-import java.util.List;
 
 public class SearchMenu extends JFrame {
 
@@ -42,8 +39,10 @@ public class SearchMenu extends JFrame {
         searchName.addActionListener(new SearchNameListener());
         searchName.setPreferredSize(new Dimension(400, 60));
         JButton searchPlace = new JButton("Keresés helyszín alapján");
+        searchPlace.addActionListener(new SearchPlaceListener());
         searchPlace.setPreferredSize(new Dimension(400, 60));
         JButton searchComment = new JButton("Keresés megjegyzés alapján");
+        searchComment.addActionListener(new SearchCommentListener());
         searchComment.setPreferredSize(new Dimension(400, 60));
         JButton back = new JButton("Vissza");
         back.setPreferredSize(new Dimension(400, 60));
@@ -69,10 +68,11 @@ public class SearchMenu extends JFrame {
         panel.add(searchComment, constraint);
         constraint.gridy = 4;
         panel.add(back, constraint);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setBounds(700, 400, 500, 400);
         setResizable(false);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setIconImage(new ImageIcon("src/icon.png").getImage());
         add(panel);
     }
 
@@ -83,7 +83,24 @@ public class SearchMenu extends JFrame {
     private class SearchNameListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event){
-            JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShown()), "A keresésre kapott találatok", JOptionPane.INFORMATION_MESSAGE);
+            String searched = searchValue.getText();
+            JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownNameCompare(searched)), "Azon események, melyek neve tartalmazza a '" + searched + "' tagot", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    private class SearchPlaceListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent event){
+            String searched = searchValue.getText();
+            JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownPlaceCompare(searched)), "Azon események, melyek helyszíne tartalmazza a '" + searched + "' tagot", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    private class SearchCommentListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent event){
+            String searched = searchValue.getText();
+            JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownCommentCompare(searched)), "Azon események, melyek megjegyzése tartalmazza a '" + searched + "' tagot", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 

@@ -17,18 +17,11 @@ public class Model implements Serializable {
 
     private static List<Event> data = new LinkedList<>();
 
-    public Model() {/* Because data is static */}
+    public Model() {/* No need to do anything */}
 
     public void addEvent(Event event) { data.add(event); }
 
     public List<Event> getData() { return data; }
-
-    //For debugging purposes only
-    public void writeTest(){
-        for(Event event : data){
-            System.out.println(event.toString());
-        }
-    }
 
     public void write(String filename, int r){
         int runNum = r + 1;

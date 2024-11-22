@@ -21,6 +21,10 @@ public class Event {
         return start.compareTo(param.start);
     }
 
+    public boolean isActiveBetween(Date param1, Date param2){
+        return ((start.compareTo(param1) != -1 && start.compareTo(param2) != 1) || (end.compareTo(param1) != -1 && end.compareTo(param2) != 1));
+    }
+
     public boolean isSame(Event param){
         return (name.equals(param.name) && place.equals(param.place) && comment.equals(param.comment) && compareTo(param) == 0);
     }

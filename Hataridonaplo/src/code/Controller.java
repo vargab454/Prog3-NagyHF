@@ -1,13 +1,14 @@
 package code;
 
 import java.awt.Dimension;
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-public class Controller {
+public class Controller implements Serializable {
     
     Model model;
 
@@ -36,10 +37,37 @@ public class Controller {
         return returnData;
     }
 
+    public List<ShownEvent> toShownNameCompare(String name){
+        List<ShownEvent> returnData = new LinkedList<>();
+        for(Event event : model.getData()){
+            ShownEvent sEvent = event.toShownEvent();
+            if(sEvent.getName().contains(name)) returnData.add(sEvent);
+        }
+        return returnData;
+    }
+
+    public List<ShownEvent> toShownPlaceCompare(String place){
+        List<ShownEvent> returnData = new LinkedList<>();
+        for(Event event : model.getData()){
+            ShownEvent sEvent = event.toShownEvent();
+            if(sEvent.getPlace().contains(place)) returnData.add(sEvent);
+        }
+        return returnData;
+    }
+
+    public List<ShownEvent> toShownCommentCompare(String comment){
+        List<ShownEvent> returnData = new LinkedList<>();
+        for(Event event : model.getData()){
+            ShownEvent sEvent = event.toShownEvent();
+            if(sEvent.getComment().contains(comment)) returnData.add(sEvent);
+        }
+        return returnData;
+    }
+
     public JScrollPane toScrollableTable(List<ShownEvent> data){
         String[] columns = {"Név", "Helyszín", "Megjegyzés", "Kezdő időpont", "Befejezési időpont"};
-        Object[][] tableData = new Object[getModelSize()][5];
-        for(int i = 0; i < getModelSize(); i++){
+        Object[][] tableData = new Object[data.size()][5];
+        for(int i = 0; i < data.size(); i++){
             ShownEvent current = data.get(i);
             tableData[i][0] = current.getName();
             tableData[i][1] = current.getPlace();

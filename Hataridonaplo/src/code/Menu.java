@@ -57,6 +57,7 @@ public class Menu extends JFrame {
         setBounds(700, 400, 500, 400);
         setResizable(false);
         setLocationRelativeTo(null);
+        setIconImage(new ImageIcon("src/icon.png").getImage());
         add(panel);
     }
 

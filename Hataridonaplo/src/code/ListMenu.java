@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -88,10 +89,11 @@ public class ListMenu extends JFrame {
         panel.add(searchMonth, constraint);
         constraint.gridx = 1;
         panel.add(back, constraint);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setBounds(700, 400, 500, 400);
         setResizable(false);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setIconImage(new ImageIcon("src/icon.png").getImage());
         add(panel);
     }
 

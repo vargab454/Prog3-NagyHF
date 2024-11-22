@@ -147,10 +147,11 @@ public class AddMenu extends JFrame {
         panel.add(add, constraint);
         constraint.gridx = 3;
         panel.add(back, constraint);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setBounds(700, 400, 500, 400);
         setResizable(false);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setIconImage(new ImageIcon("src/icon.png").getImage());
         add(panel);
     }
 
