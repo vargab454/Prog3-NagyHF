@@ -16,6 +16,8 @@ public class ShownEvent {
         end = e;
     }
 
+    public String toString() { return name + "; " + place + "; " + comment + "; " + start + "; " + end; }
+
     public String getName() { return name; }
 
     public String getPlace() { return place; }

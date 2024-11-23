@@ -93,6 +93,7 @@ public class AddMenu extends JFrame {
         constraint.gridy = 0;
         constraint.weightx = 0.5;
         constraint.weighty = 0.5;
+        constraint.insets = new Insets(5, 5, 5, 5);
         panel.add(nameStater, constraint);
         constraint.gridx = 1;
         constraint.gridwidth = 5;

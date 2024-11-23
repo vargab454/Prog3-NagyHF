@@ -7,7 +7,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Serializable;
+
 import java.time.LocalDateTime;
+
 import java.util.List;
 import java.util.LinkedList;
 
@@ -22,6 +24,8 @@ public class Model implements Serializable {
     public void addEvent(Event event) { data.add(event); }
 
     public List<Event> getData() { return data; }
+
+    public void delete(Event param) { data.remove(param); }
 
     public int deletePastEvents() {
         int deletedNum = 0;

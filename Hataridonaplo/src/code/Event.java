@@ -16,6 +16,12 @@ public class Event {
         end = e;
     }
 
+    public String getName() { return name; }
+
+    public String getPlace() { return place; }
+
+    public String getComment() { return comment; }
+
     public Date getEnd() { return end; }
 
     //Compares strictly based on startdate
@@ -24,7 +30,7 @@ public class Event {
     }
 
     public boolean isActiveBetween(Date param1, Date param2){
-        return ((start.compareTo(param1) != -1 && start.compareTo(param2) != 1) || (end.compareTo(param1) != -1 && end.compareTo(param2) != 1));
+        return ((start.compareTo(param1) != -1 && start.compareTo(param2) != 1) || (end.compareTo(param1) != -1 && end.compareTo(param2) != 1) || start.compareTo(param1) == -1 && end.compareTo(param2) == 1);
     }
 
     public boolean isSame(Event param){

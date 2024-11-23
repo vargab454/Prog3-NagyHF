@@ -25,7 +25,7 @@ public class DeleteMenu extends JFrame {
     private JTextArea searchValue;
 
     public DeleteMenu(Menu m, int r){
-        super("Határidőnapló - Esemény keresése");
+        super("Határidőnapló - Esemény törlése");
         mainMenu = m;
         runNum = r;
         controller = new Controller();
@@ -37,22 +37,21 @@ public class DeleteMenu extends JFrame {
         searchValue = new JTextArea();
         searchValue.setLineWrap(true);
         searchValue.setWrapStyleWord(true);
-        searchValue.setPreferredSize(new Dimension(300, 100));
         JButton searchName = new JButton("Keresés név alapján, majd törlés");
-        searchName.setPreferredSize(new Dimension(200, 100));
+        searchName.addActionListener(new DeleteNameListener());
         JButton searchPlace = new JButton("Keresés helyszín alapján, majd törlés");
-        searchPlace.setPreferredSize(new Dimension(200, 100));
+        searchPlace.addActionListener(new DeletePlaceListener());
         JButton searchComment = new JButton("Keresés megjegyzés alapján, törlés");
-        searchComment.setPreferredSize(new Dimension(200, 100));
+        searchComment.addActionListener(new DeleteCommentListener());
         JButton deletePast = new JButton("Lejárt határidők törlése");
         deletePast.addActionListener(new DeleteListener());
         JButton back = new JButton("Vissza");
-        back.setPreferredSize(new Dimension(400, 100));
         back.addActionListener(new ExitListener());
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
         GridBagConstraints constraint = new GridBagConstraints();
         constraint.fill = GridBagConstraints.BOTH;
+        constraint.weightx = 0.5;
         constraint.weighty = 0.5;
         constraint.gridx = 0;
         constraint.gridy = 0;
@@ -86,6 +85,27 @@ public class DeleteMenu extends JFrame {
     public void start() { setVisible(true); }
 
     public void close() { setVisible(false); }
+
+    private class DeleteNameListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent event){
+            controller.deleteBasedOnName(searchValue.getText(), runNum);
+        }
+    }
+
+    private class DeletePlaceListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent event){
+            controller.deleteBasedOnPlace(searchValue.getText(), runNum);
+        }
+    }
+
+    private class DeleteCommentListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent event){
+            controller.deleteBasedOnComment(searchValue.getText(), runNum);
+        }
+    }
 
     private class DeleteListener implements ActionListener {
         @Override
