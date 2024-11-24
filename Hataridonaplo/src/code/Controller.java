@@ -28,6 +28,8 @@ public class Controller implements Serializable {
     public int readModel(String filename){ return model.read(filename); }
 
     public int getModelSize(){ return model.getData().size(); }
+    
+    public boolean isEmpty() { return getModelSize() == 0; }
 
     public void addEventToModel(Event param){ model.addEvent(param); }
 
@@ -124,7 +126,7 @@ public class Controller implements Serializable {
         }
         return returnData;
     }
-
+    
     public JScrollPane toScrollableTable(List<ShownEvent> data){
         String[] columns = {"Név", "Helyszín", "Megjegyzés", "Kezdő időpont", "Befejezési időpont"};
         Object[][] tableData = new Object[data.size()][5];
@@ -147,8 +149,6 @@ public class Controller implements Serializable {
         scroll.setPreferredSize(new Dimension(1000,800));
         return scroll;
     }
-
-    public boolean isEmpty() { return getModelSize() == 0; }
 
     public int selectWindow(List<Event> correct){
         if(correct.isEmpty()){

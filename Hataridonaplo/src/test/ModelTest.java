@@ -10,21 +10,19 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class ModelTest {
     
     private Model model;
     private Event event1;
-    private Event event2;
 
     @BeforeEach
     public void setUp(){
         model = new Model();
         event1 = new Event("", "", "", new Date(1000, 1, 1, 1, 1), new Date(1000, 1, 1, 1, 1));
         model.addEvent(event1);
-        event2 = new Event("", "", "", new Date(LocalDateTime.now().getYear() + 1, 1, 1, 1, 1), new Date(LocalDateTime.now().getYear() + 1, 10, 10, 10, 10));
+        Event event2 = new Event("", "", "", new Date(LocalDateTime.now().getYear() + 1, 1, 1, 1, 1), new Date(LocalDateTime.now().getYear() + 1, 10, 10, 10, 10));
         model.addEvent(event2);
     }
 
