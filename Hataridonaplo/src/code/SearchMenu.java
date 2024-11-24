@@ -82,24 +82,21 @@ public class SearchMenu extends JFrame {
     private class SearchNameListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event){
-            String searched = searchValue.getText();
-            JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownNameCompare(searched)), "Azon események, melyek neve tartalmazza a '" + searched + "'részletet", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownNameCompare(searchValue.getText())), "Azon események, melyek neve tartalmazza a '" + searchValue.getText() + "'részletet", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
     private class SearchPlaceListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event){
-            String searched = searchValue.getText();
-            JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownPlaceCompare(searched)), "Azon események, melyek helyszíne tartalmazza a '" + searched + "' tagot", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownPlaceCompare(searchValue.getText())), "Azon események, melyek helyszíne tartalmazza a '" + searchValue.getText() + "' tagot", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
     private class SearchCommentListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event){
-            String searched = searchValue.getText();
-            JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownCommentCompare(searched)), "Azon események, melyek megjegyzése tartalmazza a '" + searched + "' tagot", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownCommentCompare(searchValue.getText())), "Azon események, melyek megjegyzése tartalmazza a '" + searchValue.getText() + "' tagot", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 

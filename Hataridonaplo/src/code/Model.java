@@ -66,6 +66,7 @@ public class Model implements Serializable {
     }
 
     public int read(String filename){
+        data.clear();
         int runNum = 0;
         try{
             BufferedReader br = new BufferedReader(new FileReader(filename));
