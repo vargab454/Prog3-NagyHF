@@ -36,11 +36,16 @@ public class Event {
     }
 
     public boolean isActiveBetween(Date param1, Date param2){
+        if(param1.compareTo(param2) == 1){
+            Date temp = param1;
+            param1 = param2;
+            param2 = temp;
+        }
         return ((start.compareTo(param1) != -1 && start.compareTo(param2) != 1) || (end.compareTo(param1) != -1 && end.compareTo(param2) != 1) || start.compareTo(param1) == -1 && end.compareTo(param2) == 1);
     }
 
     public boolean isSame(Event param){
-        return (name.equals(param.name) && place.equals(param.place) && comment.equals(param.comment) && compareTo(param) == 0);
+        return (name.equals(param.name) && place.equals(param.place) && comment.equals(param.comment) && compareTo(param) == 0 && end.toString().equals(param.getEnd().toString()));
     }
 
     public String toFileFormat(int runNum, int idx) { return "\r\nBEGIN:VEVENT\r\nUID:v" + runNum + "-" + idx +"\r\nSUMMARY:" + name + "\r\nDTSTART;TZID=UTC+01:" + start.toFileFormatString() + "\r\nDTEND;TZID=UTC+01:" + end.toFileFormatString() + "\r\nLOCATION:" + place + "\r\nDESCRIPTION:" + comment + "\r\nDTSTAMP:20241219T120000Z\r\nEND:VEVENT";}
