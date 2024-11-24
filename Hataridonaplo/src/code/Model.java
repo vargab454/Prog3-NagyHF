@@ -27,6 +27,12 @@ public class Model implements Serializable {
 
     public void delete(Event param) { data.remove(param); }
 
+    public void modifyName(Event param, String name) { data.get(data.indexOf(param)).setName(name); }
+
+    public void modifyPlace(Event param, String place) { data.get(data.indexOf(param)).setPlace(place); }
+
+    public void modifyComment(Event param, String comment) { data.get(data.indexOf(param)).setComment(comment); }
+
     public int deletePastEvents() {
         int deletedNum = 0;
         LocalDateTime now = LocalDateTime.now();

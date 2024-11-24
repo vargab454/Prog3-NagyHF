@@ -84,7 +84,7 @@ public class Menu extends JFrame {
         @Override
         public void actionPerformed(ActionEvent event){
             close();
-            modifyMenu.start();;
+            modifyMenu.start();
         }
     }
 

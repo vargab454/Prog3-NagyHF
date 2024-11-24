@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.TableColumnModel;
 
 public class Controller implements Serializable {
@@ -194,6 +195,54 @@ public class Controller implements Serializable {
                 writeModel("src/data.ics", runNum); //Safety save as stated in specification
             }
         }
+    }
+
+    public String getInput(String message, int yesNo){
+        JPanel panel = new JPanel();
+        JTextField textField = new JTextField(50);
+        panel.add(textField);
+        yesNo = JOptionPane.showConfirmDialog(null, panel, "A módosítás utáni " + message, JOptionPane.YES_NO_OPTION);
+        if(yesNo == JOptionPane.YES_OPTION) return textField.getText();
+        return "Invalid"; //Will not be checked based on this
+    }
+
+    public void modifySearched(int runNum, List<Event> correct, boolean[] modifiable){
+        int idx = selectWindow(correct);
+        boolean modified = false;
+        int yesNo = 0;
+        if(idx != -1){
+            if(modifiable[0]){
+                String name = getInput("név", yesNo);
+                if(yesNo == JOptionPane.YES_OPTION && !name.contains("\n"))  { model.modifyName(correct.get(idx), name); modified = true; }
+                else if(name.contains("\n")) JOptionPane.showMessageDialog(null, "Nem tartalmazhat entert a név!");
+            }
+            if(modifiable[1]){
+                String place = getInput("helyszín", yesNo);
+                if(yesNo == JOptionPane.YES_OPTION && !place.contains("\n")) { model.modifyPlace(correct.get(idx), place); modified = true; }
+                else if(place.contains("\n")) JOptionPane.showMessageDialog(null, "Nem tartalmazhat entert a helyszín!");
+            }
+            if(modifiable[2]){
+                String comment = getInput("megjegyzés", yesNo);
+                if(yesNo == JOptionPane.YES_OPTION && !comment.contains("\n")) { model.modifyComment(correct.get(idx), comment); modified = true; }
+                else if(comment.contains("\n")) JOptionPane.showMessageDialog(null, "Nem tartalmazhat entert a megjegyzés!");
+            }
+            if(modified){
+                JOptionPane.showMessageDialog(null, "Esemény módosítva!");
+                writeModel("src/data.ics", runNum); //Safety save as stated in specification
+            }
+        }
+    }
+
+    public void modifyBasedOnName(String name, int runNum, boolean[] modifiable){
+        modifySearched(runNum, nameCompare(name), modifiable);
+    }
+
+    public void modifyBasedOnPlace(String place, int runNum, boolean[] modifiable){
+        modifySearched(runNum, placeCompare(place), modifiable);
+    }
+
+    public void modifyBasedOnComment(String comment, int runNum, boolean[] modifiable){
+        modifySearched(runNum, commentCompare(comment), modifiable);
     }
 
     public void deleteBasedOnName(String name, int runNum){

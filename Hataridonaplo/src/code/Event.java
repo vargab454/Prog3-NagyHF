@@ -24,6 +24,12 @@ public class Event {
 
     public Date getEnd() { return end; }
 
+    public void setName(String n) { name = n; }
+
+    public void setPlace(String p) { place = p; }
+
+    public void setComment(String c) { comment = c; }
+
     //Compares strictly based on startdate
     public int compareTo(Event param){
         return start.compareTo(param.start);

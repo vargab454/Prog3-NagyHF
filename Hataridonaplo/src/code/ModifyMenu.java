@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -40,8 +41,11 @@ public class ModifyMenu extends JFrame {
         searchValue.setLineWrap(true);
         searchValue.setWrapStyleWord(true);
         JButton searchName = new JButton("Név keresése, majd módosítás");
+        searchName.addActionListener(new ModifyNameListener());
         JButton searchPlace = new JButton("Helyszín keresése, majd módosítás");
+        searchPlace.addActionListener(new ModifyPlaceListener());
         JButton searchComment = new JButton("Megjegyzés keresése, módosítás");
+        searchComment.addActionListener(new ModifyCommentListener());
         modifyName = new JCheckBox("Név módosítása");
         modifyPlace = new JCheckBox("Helyszín módosítása");
         modifyComment = new JCheckBox("Megjegyzés módosítása");
@@ -75,6 +79,7 @@ public class ModifyMenu extends JFrame {
         constraint.gridwidth = 2;
         constraint.anchor = GridBagConstraints.CENTER;
         constraint.fill = GridBagConstraints.NONE;
+        constraint.weighty = 0.1;
         panel.add(modifyName, constraint);
         constraint.gridy = 4;
         panel.add(modifyPlace, constraint);
@@ -91,6 +96,43 @@ public class ModifyMenu extends JFrame {
     public void start() { setVisible(true); }
 
     public void close() { setVisible(false); }
+
+    public void noneSelected() { if(!modifyName.isSelected() && !modifyPlace.isSelected() && !modifyComment.isSelected()) JOptionPane.showMessageDialog(null, "Egyik mező sincs kiválasztva módosításra!"); }
+
+    public boolean noneSelectedBooleanValue(){ return !modifyName.isSelected() && !modifyPlace.isSelected() && !modifyComment.isSelected(); }
+
+    public boolean[] getSelected() {
+        boolean[] ret = new boolean[3];
+        for(int i = 0; i < 3; i++) ret[i] = false;
+        if(modifyName.isSelected()) ret[0] = true;
+        if(modifyPlace.isSelected()) ret[1] = true;
+        if(modifyComment.isSelected()) ret[2] = true;
+        return ret;
+    }
+
+    private class ModifyNameListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent event){
+            noneSelected();
+            if(!noneSelectedBooleanValue()) controller.modifyBasedOnName(searchValue.getText(), runNum, getSelected());
+        }
+    }
+
+    private class ModifyPlaceListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent event){
+            noneSelected();
+            if(!noneSelectedBooleanValue()) controller.modifyBasedOnPlace(searchValue.getText(), runNum, getSelected());
+        }
+    }
+
+    private class ModifyCommentListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent event){
+            noneSelected();
+            if(!noneSelectedBooleanValue()) controller.modifyBasedOnComment(searchValue.getText(), runNum, getSelected());
+        }
+    }
 
     private class ExitListener implements ActionListener {
         @Override
