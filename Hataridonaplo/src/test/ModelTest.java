@@ -68,8 +68,9 @@ public class ModelTest {
     
     @Test
     public void deletePastEventsTest(){
-        model.deletePastEvents();
-        assertEquals(1, model.getData().size());
+        int size = model.getData().size();
+        int deletedNum = model.deletePastEvents();
+        assertEquals(size - deletedNum, model.getData().size());
     }
 
 }

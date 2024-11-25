@@ -152,12 +152,13 @@ public class Controller implements Serializable {
             tableData[i][4] = current.getEnd();
         }
         JTable table = new JTable(tableData, columns);
+        table.setEnabled(false);
         TableColumnModel cModel = table.getColumnModel();
-        cModel.getColumn(0).setPreferredWidth(250);
-        cModel.getColumn(1).setPreferredWidth(250);
-        cModel.getColumn(2).setPreferredWidth(250);
-        cModel.getColumn(3).setPreferredWidth(125);
-        cModel.getColumn(4).setPreferredWidth(125);
+        cModel.getColumn(0).setPreferredWidth(320);
+        cModel.getColumn(1).setPreferredWidth(120);
+        cModel.getColumn(2).setPreferredWidth(320);
+        cModel.getColumn(3).setPreferredWidth(120);
+        cModel.getColumn(4).setPreferredWidth(120);
         JScrollPane scroll = new JScrollPane(table);
         scroll.setPreferredSize(new Dimension(1000,800));
         return scroll;
