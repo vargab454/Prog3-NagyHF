@@ -55,17 +55,21 @@ public class ListMenu extends JFrame {
         for(int i = 0; i < 31; i++) days[i] = i + 1;
         day = new JComboBox<>(days);
         JButton searchDay = new JButton("Adott nap listázása");
-        searchDay.addActionListener(new SearchDayListener());
+        searchDay.addActionListener(new ListActionListener());
+        searchDay.setActionCommand("day");
         searchDay.setPreferredSize(new Dimension(200, 40));
         JButton searchWeek = new JButton("Adott hét listázása");
-        searchWeek.addActionListener(new SearchWeekListener());
+        searchWeek.addActionListener(new ListActionListener());
+        searchWeek.setActionCommand("week");
         searchWeek.setPreferredSize(new Dimension(200, 40));
         JButton searchMonth = new JButton("Adott hónap listázása");
         searchMonth.setPreferredSize(new Dimension(200, 40));
-        searchMonth.addActionListener(new SearchMonthListener());
+        searchMonth.addActionListener(new ListActionListener());
+        searchMonth.setActionCommand("month");
         JButton back = new JButton("Vissza");
         back.setPreferredSize(new Dimension(200, 40));
-        back.addActionListener(new ExitListener());
+        back.addActionListener(new ListActionListener());
+        back.setActionCommand("back");
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
         GridBagConstraints constraint = new GridBagConstraints();
@@ -117,59 +121,59 @@ public class ListMenu extends JFrame {
         else return 30;
     }
 
-    private class SearchDayListener implements ActionListener {
+    private class ListActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event){
-            int yearParam = (int) year.getSelectedItem();
-            int monthParam = (int) month.getSelectedItem();
-            int dayParam = (int) day.getSelectedItem();
-            Date date1 = new Date(yearParam, monthParam, dayParam, 0, 0);
-            if(!date1.isValid()) { JOptionPane.showMessageDialog(null, "A kiválasztott dátum nem létezik!"); return; }
-            Date date2 = new Date(yearParam, monthParam, dayParam, 23, 59);
-            controller.sortData();
-            JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownBetweenDates(date1, date2)), "A kívánt intervallumba eső események", JOptionPane.INFORMATION_MESSAGE);
-        }
-    }
-
-    private class SearchWeekListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent event){
-            int yearParam = (int) year.getSelectedItem();
-            int monthParam = (int) month.getSelectedItem();
-            int dayParam = (int) day.getSelectedItem();
-            Date givenDate = new Date(yearParam, monthParam, dayParam, 0, 0);
-            if(!givenDate.isValid()) { JOptionPane.showMessageDialog(null, "A beállított dátum nem létezik!"); return; }
-            LocalDate given = LocalDate.of(yearParam, monthParam, dayParam);
-            LocalDate end = given;
-            while(end.getDayOfWeek() != DayOfWeek.SUNDAY) end = end.plusDays(1);
-            LocalDate start = given;
-            while(start.getDayOfWeek() != DayOfWeek.MONDAY) start = start.minusDays(1);
-            Date date1 = new Date(start.getYear(), start.getMonthValue(), start.getDayOfMonth(), 0, 0);
-            Date date2 = new Date(end.getYear(), end.getMonthValue(), end.getDayOfMonth(), 23, 59);
-            controller.sortData();
-            JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownBetweenDates(date1, date2)), "A keresett intervallumba eső események", JOptionPane.INFORMATION_MESSAGE);   
-        }
-    }
-
-    private class SearchMonthListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent event){
-            int yearParam = (int) year.getSelectedItem();
-            int monthParam = (int) month.getSelectedItem();
-            Date givenDate = new Date(yearParam, monthParam, (int) day.getSelectedItem(), 0, 0);
-            if(!givenDate.isValid()) { JOptionPane.showMessageDialog(null, "A beállított dátum nem létezik!"); return; }
-            Date date1 = new Date(yearParam, monthParam, 1, 0, 0);
-            Date date2 = new Date(yearParam, monthParam, getMaxDay(yearParam, monthParam), 0, 0);
-            controller.sortData();
-            JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownBetweenDates(date1, date2)), "A keresett intervallumba eső események", JOptionPane.INFORMATION_MESSAGE);
-        }
-    }
-
-    private class ExitListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent event){
-            close();
-            mainMenu.start();
+            int yearParam;
+            int monthParam;
+            int dayParam;
+            Date givenDate;
+            Date date1;
+            Date date2;
+            switch (event.getActionCommand()) {
+                case "day":
+                    yearParam = (int) year.getSelectedItem();
+                    monthParam = (int) month.getSelectedItem();
+                    dayParam = (int) day.getSelectedItem();
+                    date1 = new Date(yearParam, monthParam, dayParam, 0, 0);
+                    if(!date1.isValid()) { JOptionPane.showMessageDialog(null, "A kiválasztott dátum nem létezik!"); return; }
+                    date2 = new Date(yearParam, monthParam, dayParam, 23, 59);
+                    controller.sortData();
+                    JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownBetweenDates(date1, date2)), "A kívánt intervallumba eső események", JOptionPane.INFORMATION_MESSAGE);    
+                    break;
+                case "week":
+                    yearParam = (int) year.getSelectedItem();
+                    monthParam = (int) month.getSelectedItem();
+                    dayParam = (int) day.getSelectedItem();
+                    givenDate = new Date(yearParam, monthParam, dayParam, 0, 0);
+                    if(!givenDate.isValid()) { JOptionPane.showMessageDialog(null, "A beállított dátum nem létezik!"); return; }
+                    LocalDate given = LocalDate.of(yearParam, monthParam, dayParam);
+                    LocalDate end = given;
+                    while(end.getDayOfWeek() != DayOfWeek.SUNDAY) end = end.plusDays(1);
+                    LocalDate start = given;
+                    while(start.getDayOfWeek() != DayOfWeek.MONDAY) start = start.minusDays(1);
+                    date1 = new Date(start.getYear(), start.getMonthValue(), start.getDayOfMonth(), 0, 0);
+                    date2 = new Date(end.getYear(), end.getMonthValue(), end.getDayOfMonth(), 23, 59);
+                    controller.sortData();
+                    JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownBetweenDates(date1, date2)), "A keresett intervallumba eső események", JOptionPane.INFORMATION_MESSAGE);       
+                    break;
+                case "month":
+                    yearParam = (int) year.getSelectedItem();
+                    monthParam = (int) month.getSelectedItem();
+                    givenDate = new Date(yearParam, monthParam, (int) day.getSelectedItem(), 0, 0);
+                    if(!givenDate.isValid()) { JOptionPane.showMessageDialog(null, "A beállított dátum nem létezik!"); return; }
+                    date1 = new Date(yearParam, monthParam, 1, 0, 0);
+                    date2 = new Date(yearParam, monthParam, getMaxDay(yearParam, monthParam), 0, 0);
+                    controller.sortData();
+                    JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownBetweenDates(date1, date2)), "A keresett intervallumba eső események", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                case "back":
+                    close();
+                    mainMenu.start();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

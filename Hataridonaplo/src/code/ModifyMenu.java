@@ -41,17 +41,21 @@ public class ModifyMenu extends JFrame {
         searchValue.setLineWrap(true);
         searchValue.setWrapStyleWord(true);
         JButton searchName = new JButton("Név keresése, majd módosítás");
-        searchName.addActionListener(new ModifyNameListener());
+        searchName.addActionListener(new ModifyActionListener());
+        searchName.setActionCommand("name");
         JButton searchPlace = new JButton("Helyszín keresése, majd módosítás");
-        searchPlace.addActionListener(new ModifyPlaceListener());
+        searchPlace.addActionListener(new ModifyActionListener());
+        searchPlace.setActionCommand("place");
         JButton searchComment = new JButton("Megjegyzés keresése, módosítás");
-        searchComment.addActionListener(new ModifyCommentListener());
+        searchComment.addActionListener(new ModifyActionListener());
+        searchComment.setActionCommand("comment");
         modifyName = new JCheckBox("Név módosítása");
         modifyPlace = new JCheckBox("Helyszín módosítása");
         modifyComment = new JCheckBox("Megjegyzés módosítása");
-        JButton back = new JButton("Vissza");
+        JButton back = new JButton("Vissza");        
         back.setPreferredSize(new Dimension(400, 100));
-        back.addActionListener(new ExitListener());
+        back.addActionListener(new ModifyActionListener());
+        back.setActionCommand("back");
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
         GridBagConstraints constraint = new GridBagConstraints();
@@ -110,35 +114,29 @@ public class ModifyMenu extends JFrame {
         return ret;
     }
 
-    private class ModifyNameListener implements ActionListener {
+    private class ModifyActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event){
-            noneSelected();
-            if(!noneSelectedBooleanValue()) controller.modifyBasedOnName(searchValue.getText(), runNum, getSelected());
-        }
-    }
-
-    private class ModifyPlaceListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent event){
-            noneSelected();
-            if(!noneSelectedBooleanValue()) controller.modifyBasedOnPlace(searchValue.getText(), runNum, getSelected());
-        }
-    }
-
-    private class ModifyCommentListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent event){
-            noneSelected();
-            if(!noneSelectedBooleanValue()) controller.modifyBasedOnComment(searchValue.getText(), runNum, getSelected());
-        }
-    }
-
-    private class ExitListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent event){
-            close();
-            mainMenu.start();
+            switch (event.getActionCommand()) {
+                case "name":
+                    noneSelected();
+                    if(!noneSelectedBooleanValue()) controller.modifyBasedOnName(searchValue.getText(), runNum, getSelected());
+                    break;
+                case "place":
+                    noneSelected();
+                    if(!noneSelectedBooleanValue()) controller.modifyBasedOnPlace(searchValue.getText(), runNum, getSelected());
+                    break;
+                case "comment":
+                    noneSelected();
+                    if(!noneSelectedBooleanValue()) controller.modifyBasedOnComment(searchValue.getText(), runNum, getSelected());
+                    break;
+                case "back":
+                    close();
+                    mainMenu.start();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

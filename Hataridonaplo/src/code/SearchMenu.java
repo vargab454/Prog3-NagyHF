@@ -36,17 +36,21 @@ public class SearchMenu extends JFrame {
         searchValue.setWrapStyleWord(true);
         searchValue.setPreferredSize(new Dimension(300, 60));
         JButton searchName = new JButton("Keresés név alapján");
-        searchName.addActionListener(new SearchNameListener());
+        searchName.addActionListener(new SearchActionListener());
+        searchName.setActionCommand("name");
         searchName.setPreferredSize(new Dimension(400, 60));
         JButton searchPlace = new JButton("Keresés helyszín alapján");
-        searchPlace.addActionListener(new SearchPlaceListener());
+        searchPlace.addActionListener(new SearchActionListener());
+        searchPlace.setActionCommand("place");
         searchPlace.setPreferredSize(new Dimension(400, 60));
         JButton searchComment = new JButton("Keresés megjegyzés alapján");
-        searchComment.addActionListener(new SearchCommentListener());
+        searchComment.addActionListener(new SearchActionListener());
+        searchComment.setActionCommand("comment");
         searchComment.setPreferredSize(new Dimension(400, 60));
         JButton back = new JButton("Vissza");
         back.setPreferredSize(new Dimension(400, 60));
-        back.addActionListener(new ExitListener());
+        back.addActionListener(new SearchActionListener());
+        back.setActionCommand("back");
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
         GridBagConstraints constraint = new GridBagConstraints();
@@ -78,33 +82,27 @@ public class SearchMenu extends JFrame {
     public void start() { setVisible(true); }
 
     public void close() { setVisible(false); }
-    
-    private class SearchNameListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent event){
-            JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownNameCompare(searchValue.getText())), "Azon események, melyek neve tartalmazza a '" + searchValue.getText() + "'részletet", JOptionPane.INFORMATION_MESSAGE);
-        }
-    }
 
-    private class SearchPlaceListener implements ActionListener {
+    private class SearchActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event){
-            JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownPlaceCompare(searchValue.getText())), "Azon események, melyek helyszíne tartalmazza a '" + searchValue.getText() + "' tagot", JOptionPane.INFORMATION_MESSAGE);
-        }
-    }
-
-    private class SearchCommentListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent event){
-            JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownCommentCompare(searchValue.getText())), "Azon események, melyek megjegyzése tartalmazza a '" + searchValue.getText() + "' tagot", JOptionPane.INFORMATION_MESSAGE);
-        }
-    }
-
-    private class ExitListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent event){
-            close();
-            mainMenu.start();
+            switch(event.getActionCommand()){
+                case "name":
+                    JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownNameCompare(searchValue.getText())), "Azon események, melyek neve tartalmazza a '" + searchValue.getText() + "'részletet", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                case "place":
+                JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownPlaceCompare(searchValue.getText())), "Azon események, melyek helyszíne tartalmazza a '" + searchValue.getText() + "' tagot", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                case "comment":
+                    JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownCommentCompare(searchValue.getText())), "Azon események, melyek megjegyzése tartalmazza a '" + searchValue.getText() + "' tagot", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                case "back":
+                    close();
+                    mainMenu.start();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

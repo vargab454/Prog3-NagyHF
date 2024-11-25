@@ -38,15 +38,20 @@ public class DeleteMenu extends JFrame {
         searchValue.setLineWrap(true);
         searchValue.setWrapStyleWord(true);
         JButton searchName = new JButton("Keresés név alapján, majd törlés");
-        searchName.addActionListener(new DeleteNameListener());
+        searchName.addActionListener(new DeleteActionListener());
+        searchName.setActionCommand("name");
         JButton searchPlace = new JButton("Keresés helyszín alapján, majd törlés");
-        searchPlace.addActionListener(new DeletePlaceListener());
+        searchPlace.addActionListener(new DeleteActionListener());
+        searchPlace.setActionCommand("place");
         JButton searchComment = new JButton("Keresés megjegyzés alapján, törlés");
-        searchComment.addActionListener(new DeleteCommentListener());
+        searchComment.addActionListener(new DeleteActionListener());
+        searchComment.setActionCommand("comment");
         JButton deletePast = new JButton("Lejárt határidők törlése");
-        deletePast.addActionListener(new DeleteListener());
+        deletePast.addActionListener(new DeleteActionListener());
+        deletePast.setActionCommand("past");
         JButton back = new JButton("Vissza");
-        back.addActionListener(new ExitListener());
+        back.addActionListener(new DeleteActionListener());
+        back.setActionCommand("back");
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
         GridBagConstraints constraint = new GridBagConstraints();
@@ -86,44 +91,34 @@ public class DeleteMenu extends JFrame {
 
     public void close() { setVisible(false); }
 
-    private class DeleteNameListener implements ActionListener {
+    private class DeleteActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event){
-            controller.deleteBasedOnName(searchValue.getText(), runNum);
-        }
-    }
-
-    private class DeletePlaceListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent event){
-            controller.deleteBasedOnPlace(searchValue.getText(), runNum);
-        }
-    }
-
-    private class DeleteCommentListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent event){
-            controller.deleteBasedOnComment(searchValue.getText(), runNum);
-        }
-    }
-
-    private class DeleteListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent event){
-            int deletedNum = controller.deletePastEventsFromModel();
-            if(deletedNum == 0) JOptionPane.showMessageDialog(null, "Nincs lejárt esemény, amit törölni lehetne!");
-            else{
-                JOptionPane.showMessageDialog(null, deletedNum + " darab lejárt esemény került törlésre!");
-                controller.writeModel("src/data.ics", runNum); //Safety save as stated in specification
+            switch (event.getActionCommand()) {
+                case "name":
+                    controller.deleteBasedOnName(searchValue.getText(), runNum);
+                    break;
+                case "place":
+                    controller.deleteBasedOnPlace(searchValue.getText(), runNum);
+                    break;
+                case "comment":
+                    controller.deleteBasedOnComment(searchValue.getText(), runNum);
+                    break;
+                case "past":
+                    int deletedNum = controller.deletePastEventsFromModel();
+                    if(deletedNum == 0) JOptionPane.showMessageDialog(null, "Nincs lejárt esemény, amit törölni lehetne!");
+                    else{
+                        JOptionPane.showMessageDialog(null, deletedNum + " darab lejárt esemény került törlésre!");
+                        controller.writeModel("src/data.ics", runNum); //Safety save as stated in specification
+                    }
+                    break;
+                case "back":
+                    close();
+                    mainMenu.start();
+                    break;
+                default:
+                    break;
             }
-        }
-    }
-
-    private class ExitListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent event){
-            close();
-            mainMenu.start();
         }
     }
 }

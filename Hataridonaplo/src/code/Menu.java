@@ -1,9 +1,15 @@
 package code;
 
-import javax.swing.*;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JMenuBar;
+import javax.swing.JFrame;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Menu extends JFrame {
 
@@ -24,42 +30,40 @@ public class Menu extends JFrame {
         searchMenu = new SearchMenu(this);
         listMenu = new ListMenu(this);
         controller = new Controller();
-        JButton addEvent = new JButton("Esemény felvétele");
-        addEvent.addActionListener(new AddListener());
-        addEvent.setPreferredSize(new Dimension(300, 50));
-        JButton modifyEvent = new JButton("Esemény módosítása");
-        modifyEvent.addActionListener(new ModifyListener());
-        modifyEvent.setPreferredSize(new Dimension(400, 50));
-        JButton deleteEvent = new JButton("Esemény törlése");
-        deleteEvent.addActionListener(new DeleteListener());
-        deleteEvent.setPreferredSize(new Dimension(400, 50));
-        JButton searchEvent = new JButton("Esemény keresése");
-        searchEvent.addActionListener(new SearchListener());
-        searchEvent.setPreferredSize(new Dimension(400, 50));
-        JButton listEvent = new JButton("Események listázása");
-        listEvent.addActionListener(new ListListener());
-        listEvent.setPreferredSize(new Dimension(400, 50));
-        JButton exit = new JButton("Kilépés");
-        exit.addActionListener(new ExitListener());
-        exit.setPreferredSize(new Dimension(400, 50));
+        JMenu jMenu = new JMenu("Funkciók");
+        JMenuItem addEvent = new JMenuItem("Esemény felvétele");
+        jMenu.add(addEvent);
+        addEvent.setActionCommand("add");
+        addEvent.addActionListener(new MenuActionListener());
+        JMenuItem modifyEvent = new JMenuItem("Esemény módosítása");
+        jMenu.add(modifyEvent);
+        modifyEvent.setActionCommand("modify");
+        modifyEvent.addActionListener(new MenuActionListener());
+        JMenuItem deleteEvent = new JMenuItem("Esemény törlése");
+        jMenu.add(deleteEvent);
+        deleteEvent.setActionCommand("delete");
+        deleteEvent.addActionListener(new MenuActionListener());
+        JMenuItem searchEvent = new JMenuItem("Esemény keresése");
+        jMenu.add(searchEvent);
+        searchEvent.addActionListener(new MenuActionListener());
+        searchEvent.setActionCommand("search");
+        JMenuItem listEvent = new JMenuItem("Események listázása");
+        jMenu.add(listEvent);
+        listEvent.addActionListener(new MenuActionListener());
+        listEvent.setActionCommand("list");
+        JMenu exitMenu = new JMenu("Leállítás");
+        JMenuItem exit = new JMenuItem("Kilépés");
+        exitMenu.add(exit);
+        exit.addActionListener(new MenuActionListener());
+        exit.setActionCommand("exit");
+        JMenuBar menuBar = new JMenuBar();
+        menuBar.add(jMenu);
+        menuBar.add(exitMenu);
+        setJMenuBar(menuBar);
         JPanel panel = new JPanel();
-        panel.setLayout(new GridBagLayout());
-        GridBagConstraints constraint = new GridBagConstraints();
-        constraint.fill = GridBagConstraints.HORIZONTAL;
-        constraint.gridx = 0;
-        constraint.gridy = 0;
-        constraint.weighty = 0.5;
-        panel.add(addEvent, constraint);
-        constraint.gridy = 1;
-        panel.add(modifyEvent, constraint);
-        constraint.gridy = 2;
-        panel.add(deleteEvent, constraint);
-        constraint.gridy = 3;
-        panel.add(searchEvent, constraint);
-        constraint.gridy = 4;
-        panel.add(listEvent, constraint);
-        constraint.gridy = 5;
-        panel.add(exit, constraint);
+        ImageIcon image = new ImageIcon("src/icon.png");
+        JLabel label = new JLabel(image);
+        panel.add(label);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setBounds(700, 400, 500, 400);
         setResizable(false);
@@ -72,51 +76,37 @@ public class Menu extends JFrame {
 
     public void close() { setVisible(false); }
 
-    private class AddListener implements ActionListener {
+    private class MenuActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event){
-            close();
-            addMenu.start();
-        }
-    }
-
-    public class ModifyListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent event){
-            close();
-            modifyMenu.start();
-        }
-    }
-
-    private class DeleteListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent event){
-            close();
-            deleteMenu.start();
-        }
-    }
-
-    private class SearchListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent event){
-            close();
-            searchMenu.start();
-        }
-    }
-
-    private class ListListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent event){
-            close();
-            listMenu.start();
-        }
-    }
-
-    private class ExitListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent event){
-            controller.writeModel("src/data.ics", runNum);
-            System.exit(0);
+            switch (event.getActionCommand()) {
+                case "add":
+                    close();
+                    addMenu.start();
+                    break;
+                case "modify":
+                    close();
+                    modifyMenu.start();
+                    break;
+                case "delete":
+                    close();
+                    deleteMenu.start();
+                    break;
+                case "search":
+                    close();
+                    searchMenu.start();
+                    break;
+                case "list":
+                    close();
+                    listMenu.start();
+                    break;
+                case "exit":
+                    controller.writeModel("src/data.ics", runNum);
+                    System.exit(0);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
