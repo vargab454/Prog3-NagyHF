@@ -7,7 +7,6 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JPanel;
-import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 
 import java.awt.GridBagLayout;
@@ -18,7 +17,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class AddMenu extends JFrame {
 
@@ -183,15 +181,7 @@ public class AddMenu extends JFrame {
                 case "add":
                     Date start = new Date((int) startYear.getSelectedItem(), (int) startMonth.getSelectedItem(), (int) startDay.getSelectedItem(), (int) startHour.getSelectedItem(), (int) startMinute.getSelectedItem());
                     Date end = new Date((int) endYear.getSelectedItem(), (int) endMonth.getSelectedItem(), (int) endDay.getSelectedItem(), (int) endHour.getSelectedItem(), (int) endMinute.getSelectedItem());
-                    Date now = new Date(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDateTime.now().getHour(), LocalDateTime.now().getMinute());
-                    Event newEvent = new Event(name.getText(), place.getText(), comment.getText(), start, end);
-                    if(name.getText().contains("\n") || place.getText().contains("\n") || comment.getText().contains("\n")) JOptionPane.showMessageDialog(null, "A név, helyszín, illetve a megjegyzés mezőkbe nem kerülhet enter!");
-                    else if(now.compareTo(start) != -1) JOptionPane.showMessageDialog(null, "Már lejárt dátumú esemény nem kerülhet felvételre!");
-                    else if(!start.isValid()) JOptionPane.showMessageDialog(null, "Az esemény kezdete nem létező dátumot kíván beállítani!");
-                    else if(!end.isValid()) JOptionPane.showMessageDialog(null, "Az esemény vége nem létező dátumot kíván beállítani!");
-                    else if(end.compareTo(start) != 1) JOptionPane.showMessageDialog(null, "Nem lehet előbb az esemény befejezése, mint a kezdete!");
-                    else if(controller.isElementOfModel(newEvent)) JOptionPane.showMessageDialog(null, "A felvenni kívánt esemény már része az adatbázisnak!");
-                    else controller.addEventToModel(newEvent);
+                    controller.addEventUI(start, end, name.getText(), place.getText(), comment.getText());
                     controller.writeModel("src/data.ics", runNum); //Safety save as stated in specification
                     break;
                 case "back":
