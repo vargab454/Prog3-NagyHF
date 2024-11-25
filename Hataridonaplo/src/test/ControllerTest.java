@@ -27,6 +27,7 @@ public class ControllerTest {
         controller = new Controller();
         event1 = new Event("", "", "", new Date(1000, 10, 1, 1, 1), new Date(1000, 11, 1, 1, 1));
         Event event2 = new Event(".", ".", ".", new Date(1000, 10, 1, 1, 1), new Date(1000, 11, 1, 1, 1));
+        controller.clearModel();
         controller.addEventToModel(event2);
         event3 = new Event(",", ",", ",", new Date(1000, 1, 1, 1, 1), new Date(1000, 2, 1, 1, 1));
         controller.addEventToModel(event3);
@@ -40,6 +41,13 @@ public class ControllerTest {
         assertEquals(11, runNum);
         assertFalse(controller.isEmpty());
         assertEquals(size, controller.getModelSize());
+    }
+
+    @Test
+    public void isEmptyTest(){
+        assertFalse(controller.isEmpty());
+        controller.clearModel();
+        assertTrue(controller.isEmpty());
     }
 
     @Test
@@ -66,7 +74,7 @@ public class ControllerTest {
     public void deleteFromModelTest(){
         int size = controller.getModelSize();
         assertTrue(controller.isElementOfModel(event3));
-        controller.deleteFromModel(event3);
+        while(controller.isElementOfModel(event3)) controller.deleteFromModel(event3);
         assertFalse(controller.isElementOfModel(event3));
         assertEquals(size - 1, controller.getModelSize());
     }
@@ -110,6 +118,17 @@ public class ControllerTest {
         assertEquals(1, sComment.size());
         List<ShownEvent> sBetween = controller.toShownBetweenDates(new Date(2499, 1, 1, 1, 1), new Date(2501, 1, 1, 1, 1));
         assertEquals(1, sBetween.size());
+    }
+
+    @Test
+    public void getMaxDayTest(){
+        assertEquals(29, controller.getMaxDay(2004, 2));
+        assertEquals(28, controller.getMaxDay(2003, 2));
+        assertEquals(30, controller.getMaxDay(1100, 4));
+        assertEquals(30, controller.getMaxDay(1100, 6));
+        assertEquals(30, controller.getMaxDay(1100, 9));
+        assertEquals(30, controller.getMaxDay(1100, 11));
+        assertEquals(31, controller.getMaxDay(1100, 1));
     }
 
 }

@@ -15,16 +15,16 @@ public class ShownEvent {
         start = s;
         end = e;
     }
+    
+    public String getName() { return name; }
+    
+    public String getPlace() { return place; }
+    
+    public String getComment() { return comment; }
+    
+    public String getStart() { return start; }
+    
+    public String getEnd() { return end; }
 
     public String toString() { return name + "; " + place + "; " + comment + "; " + start + "; " + end; }
-
-    public String getName() { return name; }
-
-    public String getPlace() { return place; }
-
-    public String getComment() { return comment; }
-
-    public String getStart() { return start; }
-
-    public String getEnd() { return end; }
 }

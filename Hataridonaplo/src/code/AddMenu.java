@@ -24,19 +24,19 @@ public class AddMenu extends JFrame {
     private Controller controller;
     private int runNum;
 
-    JTextArea name;
-    JTextArea place;
-    JTextArea comment;
-    JComboBox<Integer> startYear;
-    JComboBox<Integer> endYear;
-    JComboBox<Integer> startMonth;
-    JComboBox<Integer> endMonth;
-    JComboBox<Integer> startDay;
-    JComboBox<Integer> endDay;
-    JComboBox<Integer> startHour;
-    JComboBox<Integer> endHour;
-    JComboBox<Integer> startMinute;
-    JComboBox<Integer> endMinute;
+    private JTextArea name;
+    private JTextArea place;
+    private JTextArea comment;
+    private JComboBox<Integer> startYear;
+    private JComboBox<Integer> endYear;
+    private JComboBox<Integer> startMonth;
+    private JComboBox<Integer> endMonth;
+    private JComboBox<Integer> startDay;
+    private JComboBox<Integer> endDay;
+    private JComboBox<Integer> startHour;
+    private JComboBox<Integer> endHour;
+    private JComboBox<Integer> startMinute;
+    private JComboBox<Integer> endMinute;
 
     public AddMenu(Menu m, int r){
         super("Határidőnapló - Esemény felvétele");

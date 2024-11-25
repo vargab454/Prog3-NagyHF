@@ -6,16 +6,12 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Serializable;
-
 import java.time.LocalDateTime;
 
 import java.util.List;
 import java.util.LinkedList;
 
-
-
-public class Model implements Serializable {
+public class Model{
 
     private static List<Event> data = new LinkedList<>();
 
@@ -26,6 +22,8 @@ public class Model implements Serializable {
     public List<Event> getData() { return data; }
 
     public void delete(Event param) { data.remove(param); }
+
+    public void clear() { data.clear(); }
 
     public void modifyName(Event param, String name) { data.get(data.indexOf(param)).setName(name); }
 
@@ -66,7 +64,7 @@ public class Model implements Serializable {
     }
 
     public int read(String filename){
-        data.clear();
+        clear();
         int runNum = 0;
         try{
             BufferedReader br = new BufferedReader(new FileReader(filename));

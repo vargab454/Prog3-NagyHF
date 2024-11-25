@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 
 import java.awt.event.ActionListener;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 
 public class Menu extends JFrame {
@@ -68,6 +69,7 @@ public class Menu extends JFrame {
         setBounds(700, 400, 500, 400);
         setResizable(false);
         setLocationRelativeTo(null);
+        panel.setBackground(Color.WHITE);
         setIconImage(new ImageIcon("src/icon.png").getImage());
         add(panel);
     }

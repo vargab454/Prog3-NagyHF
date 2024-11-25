@@ -2,9 +2,9 @@ package code;
 
 import java.awt.Dimension;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Year;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,9 +18,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.TableColumnModel;
 
-public class Controller implements Serializable {
+public class Controller{
     
-    Model model;
+    private Model model;
 
     public Controller(){ model = new Model(); }
 
@@ -33,6 +33,8 @@ public class Controller implements Serializable {
     public boolean isEmpty() { return getModelSize() == 0; }
 
     public void addEventToModel(Event param){ model.addEvent(param); }
+
+    public void clearModel() { model.clear(); }
 
     public boolean isElementOfModel(Event param){
         for(Event event : model.getData()){
@@ -69,18 +71,18 @@ public class Controller implements Serializable {
         return returnData;
     }
 
-    public List<ShownEvent> toShownParameter(List<Event> param){
-        List<ShownEvent> returnData = new LinkedList<>();
-        for(Event event : param){
-            returnData.add(event.toShownEvent());
-        }
-        return returnData;
-    }
-
     public List<Event> commentCompare(String comment){
         List<Event> returnData = new LinkedList<>();
         for(Event event : model.getData()){
             if(event.getComment().contains(comment)) returnData.add(event);
+        }
+        return returnData;
+    }
+
+    public List<ShownEvent> toShownParameter(List<Event> param){
+        List<ShownEvent> returnData = new LinkedList<>();
+        for(Event event : param){
+            returnData.add(event.toShownEvent());
         }
         return returnData;
     }
@@ -111,6 +113,15 @@ public class Controller implements Serializable {
         return returnData;
     }
 
+    public List<ShownEvent> toShownCommentCompare(String comment){
+        List<ShownEvent> returnData = new LinkedList<>();
+        for(Event event : model.getData()){
+            ShownEvent sEvent = event.toShownEvent();
+            if(sEvent.getComment().contains(comment)) returnData.add(sEvent);
+        }
+        return returnData;
+    }
+
     public List<ShownEvent> toShownBetweenDates(Date param1, Date param2){
         List<ShownEvent> returnData = new LinkedList<>();
         for(Event event : model.getData()){
@@ -119,13 +130,11 @@ public class Controller implements Serializable {
         return returnData;
     }
 
-    public List<ShownEvent> toShownCommentCompare(String comment){
-        List<ShownEvent> returnData = new LinkedList<>();
-        for(Event event : model.getData()){
-            ShownEvent sEvent = event.toShownEvent();
-            if(sEvent.getComment().contains(comment)) returnData.add(sEvent);
-        }
-        return returnData;
+    public int getMaxDay(int year, int month){
+        if((month == 4 || month == 6 || month == 9 || month == 11) ) return 30;
+        else if(month == 2 && Year.of(year).isLeap()) return 29;
+        else if (month == 2) return 28;
+        else return 31;
     }
     
     public void addEventUI(Date start, Date end, String name, String place, String comment){

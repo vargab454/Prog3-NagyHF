@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 
 import java.time.LocalDate;
 import java.time.DayOfWeek;
-import java.time.Year;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -114,13 +113,6 @@ public class ListMenu extends JFrame {
 
     public void close() { setVisible(false); }
 
-    public int getMaxDay(int year, int month){
-        if((month == 4 || month == 6 || month == 9 || month == 11) ) return 31;
-        else if(month == 2 && Year.of(year).isLeap()) return 29;
-        else if (month == 2 && !Year.of(year).isLeap()) return 28;
-        else return 30;
-    }
-
     private class ListActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event){
@@ -163,7 +155,7 @@ public class ListMenu extends JFrame {
                     givenDate = new Date(yearParam, monthParam, (int) day.getSelectedItem(), 0, 0);
                     if(!givenDate.isValid()) { JOptionPane.showMessageDialog(null, "A beállított dátum nem létezik!"); return; }
                     date1 = new Date(yearParam, monthParam, 1, 0, 0);
-                    date2 = new Date(yearParam, monthParam, getMaxDay(yearParam, monthParam), 0, 0);
+                    date2 = new Date(yearParam, monthParam, controller.getMaxDay(yearParam, monthParam), 0, 0);
                     controller.sortData();
                     JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownBetweenDates(date1, date2)), "A keresett intervallumba eső események", JOptionPane.INFORMATION_MESSAGE);
                     break;
