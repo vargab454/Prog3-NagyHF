@@ -210,33 +210,32 @@ public class Controller implements Serializable {
         }
     }
 
-    public String getInput(String message, int yesNo){
+    public String getInput(String message){
         JPanel panel = new JPanel();
         JTextField textField = new JTextField(50);
         panel.add(textField);
-        yesNo = JOptionPane.showConfirmDialog(null, panel, "A módosítás utáni " + message, JOptionPane.YES_NO_OPTION);
+        int yesNo = JOptionPane.showConfirmDialog(null, panel, "A módosítás utáni " + message, JOptionPane.YES_NO_OPTION);
         if(yesNo == JOptionPane.YES_OPTION) return textField.getText();
-        return "Invalid"; //Will not be checked based on this
+        return "InvalidInputGivenByUserFromUI";
     }
 
     public void modifySearched(int runNum, List<Event> correct, boolean[] modifiable){
         int idx = selectWindow(correct);
         boolean modified = false;
-        int yesNo = 0;
         if(idx != -1){
             if(modifiable[0]){
-                String name = getInput("név", yesNo);
-                if(yesNo == JOptionPane.YES_OPTION && !name.contains("\n"))  { model.modifyName(correct.get(idx), name); modified = true; }
+                String name = getInput("név");
+                if(!name.equals("InvalidInputGivenByUserFromUI") && !name.contains("\n"))  { model.modifyName(correct.get(idx), name); modified = true; }
                 else if(name.contains("\n")) JOptionPane.showMessageDialog(null, "Nem tartalmazhat entert a név!");
             }
             if(modifiable[1]){
-                String place = getInput("helyszín", yesNo);
-                if(yesNo == JOptionPane.YES_OPTION && !place.contains("\n")) { model.modifyPlace(correct.get(idx), place); modified = true; }
+                String place = getInput("helyszín");
+                if(!place.equals("InvalidInputGivenByUserFromUI") && !place.contains("\n")) { model.modifyPlace(correct.get(idx), place); modified = true; }
                 else if(place.contains("\n")) JOptionPane.showMessageDialog(null, "Nem tartalmazhat entert a helyszín!");
             }
             if(modifiable[2]){
-                String comment = getInput("megjegyzés", yesNo);
-                if(yesNo == JOptionPane.YES_OPTION && !comment.contains("\n")) { model.modifyComment(correct.get(idx), comment); modified = true; }
+                String comment = getInput("megjegyzés");
+                if(!comment.equals("InvalidInputGivenByUserFromUI") && !comment.contains("\n")) { model.modifyComment(correct.get(idx), comment); modified = true; }
                 else if(comment.contains("\n")) JOptionPane.showMessageDialog(null, "Nem tartalmazhat entert a megjegyzés!");
             }
             if(modified){
