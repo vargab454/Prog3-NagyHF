@@ -141,7 +141,7 @@ public class Controller{
         Event newEvent = new Event(name, place, comment, start, end);
         Date now = new Date(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDateTime.now().getHour(), LocalDateTime.now().getMinute());
         if(name.contains("\n") || place.contains("\n") || comment.contains("\n")) JOptionPane.showMessageDialog(null, "A név, helyszín, illetve a megjegyzés mezőkbe nem kerülhet enter!");
-        else if(now.compareTo(start) != -1) JOptionPane.showMessageDialog(null, "Már lejárt dátumú esemény nem kerülhet felvételre!");
+        else if(now.compareTo(end) != -1) JOptionPane.showMessageDialog(null, "Már lejárt dátumú esemény nem kerülhet felvételre!");
         else if(!start.isValid()) JOptionPane.showMessageDialog(null, "Az esemény kezdete nem létező dátumot kíván beállítani!");
         else if(!end.isValid()) JOptionPane.showMessageDialog(null, "Az esemény vége nem létező dátumot kíván beállítani!");
         else if(end.compareTo(start) != 1) JOptionPane.showMessageDialog(null, "Nem lehet előbb az esemény befejezése, mint a kezdete!");
