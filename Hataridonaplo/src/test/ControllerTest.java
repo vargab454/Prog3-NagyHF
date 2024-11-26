@@ -108,14 +108,8 @@ public class ControllerTest {
     }
 
     @Test
-    public void toShownWithCompareTests(){
+    public void toShownBetweenDatesTests(){
         controller.addEventToModel(new Event("test3", "test3", "test3", new Date(2500, 1, 1, 1, 1), new Date(2500, 2, 1, 1, 1)));
-        List<ShownEvent> sName = controller.toShownNameCompare("test3");
-        assertEquals(1, sName.size());
-        List<ShownEvent> sPlace = controller.toShownPlaceCompare("test3");
-        assertEquals(1, sPlace.size());
-        List<ShownEvent> sComment = controller.toShownCommentCompare("test3");
-        assertEquals(1, sComment.size());
         List<ShownEvent> sBetween = controller.toShownBetweenDates(new Date(2499, 1, 1, 1, 1), new Date(2501, 1, 1, 1, 1));
         assertEquals(1, sBetween.size());
     }

@@ -1,7 +1,7 @@
 package code;
 
 import java.awt.Dimension;
-
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Year;
@@ -327,13 +327,13 @@ public class Controller{
      * Creates a popup window with a JTextField, where input can be written
      * If yes option is chosen returns the given String, else returns an ivalid one
      */
-    public String getInput(String message){
+    public String getInput(String message) throws IOException {
         JPanel panel = new JPanel();
         JTextField textField = new JTextField(50);
         panel.add(textField);
         int yesNo = JOptionPane.showConfirmDialog(null, panel, "A módosítás utáni " + message, JOptionPane.YES_NO_OPTION);
         if(yesNo == JOptionPane.YES_OPTION) return textField.getText();
-        return "InvalidInputGivenByUserFromUI";
+        throw new IOException();
     }
 
     /**
@@ -349,19 +349,25 @@ public class Controller{
         boolean modified = false;
         if(idx != -1){
             if(modifiable[0]){
-                String name = getInput("név");
-                if(!name.equals("InvalidInputGivenByUserFromUI") && !name.contains("\n"))  { model.modifyName(correct.get(idx), name); modified = true; }
-                else if(name.contains("\n")) JOptionPane.showMessageDialog(null, "Nem tartalmazhat entert a név!");
+                try{
+                    String name = getInput("név");
+                    model.modifyName(correct.get(idx), name);
+                    modified = true;
+                }catch(IOException exception) {/* No reason to do anything */}
             }
             if(modifiable[1]){
-                String place = getInput("helyszín");
-                if(!place.equals("InvalidInputGivenByUserFromUI") && !place.contains("\n")) { model.modifyPlace(correct.get(idx), place); modified = true; }
-                else if(place.contains("\n")) JOptionPane.showMessageDialog(null, "Nem tartalmazhat entert a helyszín!");
+                try{
+                    String place = getInput("helyszín");
+                    model.modifyPlace(correct.get(idx), place);
+                    modified = true;
+                }catch(IOException exception) {/* No reason to do anything */}
             }
             if(modifiable[2]){
-                String comment = getInput("megjegyzés");
-                if(!comment.equals("InvalidInputGivenByUserFromUI") && !comment.contains("\n")) { model.modifyComment(correct.get(idx), comment); modified = true; }
-                else if(comment.contains("\n")) JOptionPane.showMessageDialog(null, "Nem tartalmazhat entert a megjegyzés!");
+                try{
+                    String comment = getInput("megjegyzés");
+                    model.modifyComment(correct.get(idx), comment);
+                    modified = true;
+                }catch(IOException exception) {/* No reason to do anything */}
             }
             if(modified){
                 JOptionPane.showMessageDialog(null, "Esemény módosítva!");
