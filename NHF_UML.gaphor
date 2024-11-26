@@ -2983,7 +2983,7 @@ existing classes or even new classes with specific responsibilities.</val>
 </Class>
 <ClassItem id="5eb69895-ab66-11ef-8aad-005056c00008">
 <matrix>
-<val>(1.0, 0.0, 0.0, 1.0, 65.41132478632491, -424.45566112413735)</val>
+<val>(1.0, 0.0, 0.0, 1.0, 65.41132478632491, -424.4556611241374)</val>
 </matrix>
 <top-left>
 <val>(0.0, 0.0)</val>
@@ -2992,7 +2992,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>366.0</val>
 </width>
 <height>
-<val>634.0</val>
+<val>580.0</val>
 </height>
 <diagram>
 <ref refid="585f224c-71b6-11ec-a409-f47b099bf663"/>
@@ -3486,109 +3486,25 @@ existing classes or even new classes with specific responsibilities.</val>
 <ref refid="5eb69894-ab66-11ef-b74c-005056c00008"/>
 </class_>
 <name>
-<val>toShownNameCompare</val>
+<val></val>
 </name>
-<ownedParameter>
-<reflist>
-<ref refid="c14eda86-ab67-11ef-9902-005056c00008"/>
-<ref refid="c15011fa-ab67-11ef-997a-005056c00008"/>
-</reflist>
-</ownedParameter>
 </Operation>
-<Parameter id="c14eda86-ab67-11ef-9902-005056c00008">
-<direction>
-<val>return</val>
-</direction>
-<ownerFormalParam>
-<ref refid="c14d5531-ab67-11ef-86e3-005056c00008"/>
-</ownerFormalParam>
-<typeValue>
-<val>List&lt;ShownEvent&gt;</val>
-</typeValue>
-</Parameter>
-<Parameter id="c15011fa-ab67-11ef-997a-005056c00008">
-<direction>
-<val>in</val>
-</direction>
-<name>
-<val>String</val>
-</name>
-<ownerFormalParam>
-<ref refid="c14d5531-ab67-11ef-86e3-005056c00008"/>
-</ownerFormalParam>
-</Parameter>
 <Operation id="c3d6ed00-ab67-11ef-8b1b-005056c00008">
 <class_>
 <ref refid="5eb69894-ab66-11ef-b74c-005056c00008"/>
 </class_>
 <name>
-<val>toShownPlaceCompare</val>
+<val></val>
 </name>
-<ownedParameter>
-<reflist>
-<ref refid="c3d87254-ab67-11ef-8502-005056c00008"/>
-<ref refid="c3d982d9-ab67-11ef-b6cc-005056c00008"/>
-</reflist>
-</ownedParameter>
 </Operation>
-<Parameter id="c3d87254-ab67-11ef-8502-005056c00008">
-<direction>
-<val>return</val>
-</direction>
-<ownerFormalParam>
-<ref refid="c3d6ed00-ab67-11ef-8b1b-005056c00008"/>
-</ownerFormalParam>
-<typeValue>
-<val>List&lt;ShownEvent&gt;</val>
-</typeValue>
-</Parameter>
-<Parameter id="c3d982d9-ab67-11ef-b6cc-005056c00008">
-<direction>
-<val>in</val>
-</direction>
-<name>
-<val>String</val>
-</name>
-<ownerFormalParam>
-<ref refid="c3d6ed00-ab67-11ef-8b1b-005056c00008"/>
-</ownerFormalParam>
-</Parameter>
 <Operation id="c5252f59-ab67-11ef-864d-005056c00008">
 <class_>
 <ref refid="5eb69894-ab66-11ef-b74c-005056c00008"/>
 </class_>
 <name>
-<val>toShownCommentCompare</val>
+<val></val>
 </name>
-<ownedParameter>
-<reflist>
-<ref refid="c526b832-ab67-11ef-8d28-005056c00008"/>
-<ref refid="c527ee0b-ab67-11ef-bea8-005056c00008"/>
-</reflist>
-</ownedParameter>
 </Operation>
-<Parameter id="c526b832-ab67-11ef-8d28-005056c00008">
-<direction>
-<val>return</val>
-</direction>
-<ownerFormalParam>
-<ref refid="c5252f59-ab67-11ef-864d-005056c00008"/>
-</ownerFormalParam>
-<typeValue>
-<val>List&lt;ShownEvent&gt;</val>
-</typeValue>
-</Parameter>
-<Parameter id="c527ee0b-ab67-11ef-bea8-005056c00008">
-<direction>
-<val>in</val>
-</direction>
-<name>
-<val>String</val>
-</name>
-<ownerFormalParam>
-<ref refid="c5252f59-ab67-11ef-864d-005056c00008"/>
-</ownerFormalParam>
-</Parameter>
 <Operation id="e412c9c5-ab67-11ef-8216-005056c00008">
 <class_>
 <ref refid="5eb69894-ab66-11ef-b74c-005056c00008"/>
@@ -4356,7 +4272,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(1.0, 0.0, 0.0, 1.0, -239.99599999999998, 541.8710495468704)</val>
 </matrix>
 <points>
-<val>[(-139.75525127410526, -111.55094207949224), (-139.75525127410526, -585.0890964577461), (305.4073247863249, -585.0890964577461)]</val>
+<val>[(-139.75525127410526, -111.55094207949224), (-139.75525127410526, -617.5604389932605), (305.4073247863249, -617.5604389932605)]</val>
 </points>
 <head-connection>
 <ref refid="43b29610-ab5f-11ef-bee3-005056c00008"/>
@@ -4446,7 +4362,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(1.0, 0.0, 0.0, 1.0, -23.99599999999998, 541.8710495468704)</val>
 </matrix>
 <points>
-<val>[(-95.27698956693357, -111.55094207949224), (-95.27698956693357, -420.62728000547366), (89.40732478632489, -420.62728000547366)]</val>
+<val>[(-95.27698956693357, -111.55094207949224), (-95.27698956693357, -467.1064113239892), (89.40732478632489, -467.1064113239892)]</val>
 </points>
 <head-connection>
 <ref refid="48ac918f-ab60-11ef-8d8b-005056c00008"/>
@@ -4536,7 +4452,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(1.0, 0.0, 0.0, 1.0, 476.004, 543.8710495468704)</val>
 </matrix>
 <points>
-<val>[(85.45365233400605, -113.55094207949224), (85.45365233400605, -399.8305925764457), (-44.59267521367508, -399.8305925764457)]</val>
+<val>[(85.45365233400605, -113.55094207949224), (85.45365233400605, -448.25139758765454), (-44.59267521367508, -448.25139758765454)]</val>
 </points>
 <head-connection>
 <ref refid="5757c31c-ab62-11ef-9030-005056c00008"/>
@@ -4626,7 +4542,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(1.0, 0.0, 0.0, 1.0, 678.004, 542.8710495468704)</val>
 </matrix>
 <points>
-<val>[(134.55083302339472, -112.55094207949219), (134.55083302339472, -494.90234674163463), (-246.59267521367508, -494.90234674163463)]</val>
+<val>[(134.55083302339472, -112.55094207949219), (134.55083302339472, -535.140384047922), (-246.59267521367508, -535.140384047922)]</val>
 </points>
 <head-connection>
 <ref refid="1102617b-ab63-11ef-a6c8-005056c00008"/>
@@ -4716,7 +4632,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(1.0, 0.0, 0.0, 1.0, 871.5507246376811, 542.82994398572)</val>
 </matrix>
 <points>
-<val>[(183.97306223439375, -112.50983651834173), (183.97306223439375, -586.0479908965958), (-440.1393998513562, -586.0479908965958)]</val>
+<val>[(183.97306223439375, -112.50983651834173), (183.97306223439375, -618.5193334321102), (-440.1393998513562, -618.5193334321102)]</val>
 </points>
 <head-connection>
 <ref refid="70e7d86d-ab63-11ef-8f95-005056c00008"/>
@@ -4806,7 +4722,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(1.0, 0.0, 0.0, 1.0, 172.55072463768113, 336.8710495468704)</val>
 </matrix>
 <points>
-<val>[(0.0, -5.57671340635801), (1.3606001486435844, -127.32671067100773)]</val>
+<val>[(0.0, -5.57671340635801), (1.3606001486435844, -181.3267106710078)]</val>
 </points>
 <head-connection>
 <ref refid="9f26ed94-ab5e-11ef-a8dd-005056c00008"/>
@@ -4948,7 +4864,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(1.0, 0.0, 0.0, 1.0, 60.70595960689286, -293.62707781554724)</val>
 </matrix>
 <points>
-<val>[(4.70536517943205, -0.4958316963522975), (-475.2349962917559, -1.5021426079456432)]</val>
+<val>[(4.70536517943205, -11.59672852136947), (-475.2349962917559, -1.5021426079456432)]</val>
 </points>
 <head-connection>
 <ref refid="5eb69895-ab66-11ef-8aad-005056c00008"/>
