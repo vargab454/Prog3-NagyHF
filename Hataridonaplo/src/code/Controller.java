@@ -25,20 +25,18 @@ public class Controller{
     public Controller(){ model = new Model(); }
 
     /**
+     * Calls model's appropriate function with the given parameters
      * 
      * @param filename the file's name that we will write into
      * @param runNum is used in order to create uniqe IDs when data is saved
-     * 
-     * Calls model's appropriate function with the given parameters
      */
     public void writeModel(String filename, int runNum){ model.write(filename, runNum); }
 
     /**
+     * Calls model's appropriate function with the given parameters
      * 
      * @param filename the file that we will read from
      * @return the runNum that has been read from the given file (from PRODID line)
-     * 
-     * Calls model's appropriate function with the given parameters
      */
     public int readModel(String filename){ return model.read(filename); }
 
@@ -55,10 +53,9 @@ public class Controller{
     public boolean isEmpty() { return getModelSize() == 0; }
 
     /**
+     * Calls model's appropriate function with the given parameters
      * 
      * @param param the Event that will be added to the stored List
-     * 
-     * Calls model's appropriate function with the given parameters
      */
     public void addEventToModel(Event param){ model.addEvent(param); }
 
@@ -68,11 +65,10 @@ public class Controller{
     public void clearModel() { model.clear(); }
 
     /**
+     * Checks all the stored Events if any are the same as the parameter
      * 
      * @param param the Event that we want to get information about
      * @return true if there is a stored element with the exact same data as the parameter, false otherwise
-     * 
-     * Checks all the stored Events if any are the same as the parameter
      */
     public boolean isElementOfModel(Event param){
         for(Event event : model.getData()){
@@ -82,20 +78,18 @@ public class Controller{
     }
 
     /**
+     * Calls model's appropriate function
      * 
      * @return the number of Events deletes
-     * 
-     * Calls model's appropriate function
      */
     public int deletePastEventsFromModel(){
         return model.deletePastEvents();
     }
 
     /**
+     * Calls model's appropriate function with the given parameters
      * 
      * @param param the Event that will be deleted
-     * 
-     * Calls model's appropriate function with the given parameters
      */
     public void deleteFromModel(Event param){
         model.delete(param);
@@ -200,16 +194,15 @@ public class Controller{
     }
     
     /**
+     * Checks if the given Date values are valid, if the start is before the end, if the end is after current time, if the Strings contain enters and if the new Event is already a part of the stored data
+     * If any of these are not ideal shows an error popup message
+     * Otherwise adds the new Event to the stored data
      * 
      * @param start start Date of the new Event
      * @param end end Date of the new Event
      * @param name name of the new Event
      * @param place place of the new Event
      * @param comment comment given to the new Event
-     * 
-     * Checks if the given Date values are valid, if the start is before the end, if the end is after current time, if the Strings contain enters and if the new Event is already a part of the stored data
-     * If any of these are not ideal shows an error popup message
-     * Otherwise adds the new Event to the stored data
      */
     public void addEventUI(Date start, Date end, String name, String place, String comment){
         Event newEvent = new Event(name, place, comment, start, end);
@@ -224,11 +217,10 @@ public class Controller{
     }
 
     /**
+     * Converts the parameter into a table, then adds it to a JScrollPane, sets some graphical parameters
      * 
      * @param data the list that the table will consist of
      * @return a JSCrollPane that contains the required table as well
-     * 
-     * Converts the parameter into a table, then adds it to a JScrollPane, sets some graphical parameters
      */
     public JScrollPane toScrollableTable(List<ShownEvent> data){
         String[] columns = {"Név", "Helyszín", "Megjegyzés", "Kezdő időpont", "Befejezési időpont"};
@@ -255,14 +247,13 @@ public class Controller{
     }
 
     /**
-     * 
-     * @param correct a List of Events that have to be shown on the window
-     * @return the value that has been chosen (index of the chosen Event in the correct List)
-     * 
      * Creates a JOptionPane with JRadioButtons that each represent an element of the correct List
      * Gets user input as to which the user wants to modify/delete
      * If not the OK option is selected returns invalid value
      * Else returns the chosen index
+     * 
+     * @param correct a List of Events that have to be shown on the window
+     * @return the value that has been chosen (index of the chosen Event in the correct List)
      */
     public int selectWindow(List<Event> correct){
         if(correct.isEmpty()){
@@ -300,12 +291,11 @@ public class Controller{
     }
 
     /**
+     * If selectWindow returns with a valid value a popup window is shown to get validation on the deletion of the chosen Event
+     * If yes option is chosen the Event will get deleted and the new data will be written into a file, otherwise nothing happens
      * 
      * @param runNum is used in order to create uniqe IDs when data is saved
      * @param correct a List of Events that have to be given to selectWindow as a parameter
-     * 
-     * If selectWindow returns with a valid value a popup window is shown to get validation on the deletion of the chosen Event
-     * If yes option is chosen the Event will get deleted and the new data will be written into a file, otherwise nothing happens
      */
     public void deleteSearched(int runNum, List<Event> correct){
         int idx = selectWindow(correct);
@@ -320,12 +310,11 @@ public class Controller{
     }
 
     /**
+     * Creates a popup window with a JTextField, where input can be written
+     * If yes option is chosen returns the given String, else returns an ivalid one
      * 
      * @param message message shown on the window
      * @return the String that the user has given
-     * 
-     * Creates a popup window with a JTextField, where input can be written
-     * If yes option is chosen returns the given String, else returns an ivalid one
      */
     public String getInput(String message) throws IOException {
         JPanel panel = new JPanel();
@@ -337,12 +326,11 @@ public class Controller{
     }
 
     /**
+     * Gets user input on the fields selected and if yes option is selected modifies the appriopriate Event and writes the new stored data into a file 
      * 
      * @param runNum is used in order to create uniqe IDs when data is saved
      * @param correct a List of Events that have to be given to selectWindow as a parameter
      * @param modifiable which checkboxes have been selected
-     * 
-     * Gets user input on the fields selected and if yes option is selected modifies the appriopriate Event and writes the new stored data into a file 
      */
     public void modifySearched(int runNum, List<Event> correct, boolean[] modifiable){
         int idx = selectWindow(correct);
@@ -377,69 +365,63 @@ public class Controller{
     }
 
     /**
+     * Calls modifySearched with the appropriate parameters
      * 
      * @param name String that the correct parameter of modifySearched will be calculated with
      * @param runNum is used in order to create uniqe IDs when data is saved
      * @param modifiable which checkboxes have been selected
-     * 
-     * Calls modifySearched with the appropriate parameters
      */
     public void modifyBasedOnName(String name, int runNum, boolean[] modifiable){
         modifySearched(runNum, nameCompare(name), modifiable);
     }
 
     /**
+     * Calls modifySearched with the appropriate parameters
      * 
      * @param place String that the correct parameter of modifySearched will be calculated with
      * @param runNum is used in order to create uniqe IDs when data is saved
      * @param modifiable which checkboxes have been selected
-     * 
-     * Calls modifySearched with the appropriate parameters
      */
     public void modifyBasedOnPlace(String place, int runNum, boolean[] modifiable){
         modifySearched(runNum, placeCompare(place), modifiable);
     }
 
     /**
+     * Calls modifySearched with the appropriate parameters
      * 
      * @param comment String that the correct parameter of modifySearched will be calculated with
      * @param runNum is used in order to create uniqe IDs when data is saved
      * @param modifiable which checkboxes have been selected
-     * 
-     * Calls modifySearched with the appropriate parameters
      */
     public void modifyBasedOnComment(String comment, int runNum, boolean[] modifiable){
         modifySearched(runNum, commentCompare(comment), modifiable);
     }
 
     /**
+     * Calls deleteSearched with the appropriate parameters
      * 
      * @param name String that the correct parameter of deleteSearched will be calculated with
      * @param runNum is used in order to create uniqe IDs when data is saved
-     * 
-     * Calls deleteSearched with the appropriate parameters
      */
     public void deleteBasedOnName(String name, int runNum){
         deleteSearched(runNum, nameCompare(name));
     }
 
     /**
+     * Calls deleteSearched with the appropriate parameters
      * 
      * @param place String that the correct parameter of deleteSearched will be calculated with
      * @param runNum is used in order to create uniqe IDs when data is saved
-     * 
-     * Calls deleteSearched with the appropriate parameters
      */
     public void deleteBasedOnPlace(String place, int runNum){
         deleteSearched(runNum, placeCompare(place));
     }
 
     /**
+     * Calls deleteSearched with the appropriate parameters
      * 
      * @param comment String that the correct parameter of deleteSearched will be calculated with
      * @param runNum is used in order to create uniqe IDs when data is saved
-     * 
-     * Calls deleteSearched with the appropriate parameters
      */
     public void deleteBasedOnComment(String comment, int runNum){
         deleteSearched(runNum, commentCompare(comment));

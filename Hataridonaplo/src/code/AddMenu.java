@@ -39,11 +39,10 @@ public class AddMenu extends JFrame {
     private JComboBox<Integer> endMinute;
 
     /**
+     * Creates the add event menu
      * 
      * @param m main menu, in order to be able to make it visible
      * @param r runNum, this will be used in order to create uniqe IDs when data is saved
-     * 
-     * Creates the add event menu
      */
     public AddMenu(Menu m, int r){
         super("Határidőnapló - Esemény felvétele");

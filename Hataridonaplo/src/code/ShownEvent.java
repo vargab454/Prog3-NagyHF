@@ -9,14 +9,13 @@ public class ShownEvent {
     private String end;
     
     /**
+     * Sets the stored variables to the given values
      * 
      * @param n name
      * @param p place
      * @param c comment
      * @param s start date as String
      * @param e end date as String
-     * 
-     * Sets the stored variables to the given values
      */
     public ShownEvent(String n, String p, String c, String s, String e){
         name = n;

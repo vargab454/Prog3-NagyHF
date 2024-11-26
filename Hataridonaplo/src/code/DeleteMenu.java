@@ -25,11 +25,10 @@ public class DeleteMenu extends JFrame {
     private JTextArea searchValue;
 
     /**
+     * Creates the delete event menu
      * 
      * @param m main menu, in order to be able to make it visible
      * @param r runNum, this will be used in order to create uniqe IDs when data is saved
-     * 
-     * Creates the delete event menu
      */
     public DeleteMenu(Menu m, int r){
         super("Határidőnapló - Esemény törlése");

@@ -23,10 +23,9 @@ public class Menu extends JFrame {
     private int runNum;
 
     /**
+     * Creates the main menu
      * 
      * @param r runNum, this will be used in order to create uniqe IDs when data is saved
-     * 
-     * Creates the main menu
      */
     public Menu(int r){
         super("Határidőnapló");

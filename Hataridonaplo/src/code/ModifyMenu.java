@@ -29,11 +29,10 @@ public class ModifyMenu extends JFrame {
     private JCheckBox modifyComment;
 
     /**
+     * Creates the modify event menu
      * 
      * @param m main menu, in order to be able to make it visible
      * @param r runNum, this will be used in order to create uniqe IDs when data is saved
-     * 
-     * Creates the modify event menu
      */
     public ModifyMenu(Menu m, int r){
         super("Határidőnapló - Esemény módosítása");

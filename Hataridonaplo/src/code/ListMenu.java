@@ -29,10 +29,9 @@ public class ListMenu extends JFrame {
     private JComboBox<Integer> day;
 
     /**
+     * Creates the list event menu
      * 
      * @param m main menu, in order to be able to make it visible
-     * 
-     * Creates the list event menu
      */
     public ListMenu(Menu m){
         super("Határidőnapló - Események listázása");

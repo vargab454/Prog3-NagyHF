@@ -12,13 +12,13 @@ public class Date {
     public Date() {}
 
     /**
+     * Sets the stored variables to the given values
+     * 
      * @param y year
      * @param m month
      * @param d day
      * @param h hour
      * @param mi minute
-     * 
-     * Sets the stored variables to the given values
      */
     public Date(int y, int m, int d, int h, int mi){
         year = y;

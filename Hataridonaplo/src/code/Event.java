@@ -9,14 +9,13 @@ public class Event {
     private Date end;
     
     /**
+     * Sets the stored variables to the given values
      * 
      * @param n name
      * @param p place
      * @param c comment
      * @param s start Date
      * @param e end Date
-     * 
-     * Sets the stored variables to the given values
      */
     public Event(String n, String p, String c, Date s, Date e){
         name = n;
@@ -51,26 +50,23 @@ public class Event {
     public Date getEnd() { return end; }
 
     /**
+     * Sets the stored name to the value given
      * 
      * @param n name
-     * 
-     * Sets the stored name to the value given
      */
     public void setName(String n) { name = n; }
 
     /**
+     * Sets the stored place to the value given
      * 
      * @param p place
-     * 
-     * Sets the stored place to the value given
      */
     public void setPlace(String p) { place = p; }
 
     /**
+     * Sets the stored comment to the comment given
      * 
      * @param c comment
-     * 
-     * Sets the stored comment to the comment given
      */
     public void setComment(String c) { comment = c; }
 

@@ -23,10 +23,9 @@ public class SearchMenu extends JFrame {
     private JTextArea searchValue;
 
     /**
+     * Creates the search event menu
      * 
      * @param m main menu, in order to be able to make it visible
-     * 
-     * Creates the search event menu
      */
     public SearchMenu(Menu m){
         super("Határidőnapló - Esemény keresése");
