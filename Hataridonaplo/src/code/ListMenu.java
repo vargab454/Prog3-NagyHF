@@ -28,6 +28,12 @@ public class ListMenu extends JFrame {
     private JComboBox<Integer> month;
     private JComboBox<Integer> day;
 
+    /**
+     * 
+     * @param m main menu, in order to be able to make it visible
+     * 
+     * Creates the list event menu
+     */
     public ListMenu(Menu m){
         super("Határidőnapló - Események listázása");
         mainMenu = m;
@@ -109,10 +115,21 @@ public class ListMenu extends JFrame {
         add(panel);
     }
 
+    /**
+     * Makes the list event menu visible
+     */
     public void start() { setVisible(true); }
 
+    /**
+     * Makes the list event menu not visible
+     */
     public void close() { setVisible(false); }
 
+    /**
+     * Handles user input, reads given information, creates the interval that will be checked or whether the given date is valid (if not then popup error)
+     * creates table with correct events throught calling controller's appropriate function
+     * back option makes the main menu visible, the list event menu not visible
+     */
     private class ListActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event){

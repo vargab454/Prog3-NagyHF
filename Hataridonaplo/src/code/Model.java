@@ -13,24 +13,73 @@ import java.util.LinkedList;
 
 public class Model{
 
+    /**
+     * LinkedList that contains the stored Events
+     */
     private static List<Event> data = new LinkedList<>();
 
     public Model() {/* No need to do anything */}
 
+    /**
+     * 
+     * @param event the event that will be added to the stored list
+     * 
+     * Adds the event given as the parameter to the stored list
+     */
     public void addEvent(Event event) { data.add(event); }
 
+    /**
+     * 
+     * @return the stored list
+     */
     public List<Event> getData() { return data; }
 
+    /**
+     * 
+     * @param param the Event that will be deleted
+     * 
+     * Deletes the Event given as the parameter
+     */
     public void delete(Event param) { data.remove(param); }
 
+    /**
+     * Empties the stored list
+     */
     public void clear() { data.clear(); }
 
+    /**
+     * 
+     * @param param the Event that will be modified
+     * @param name the new name value
+     * 
+     * Sets the given parameter's name to the given value
+     */
     public void modifyName(Event param, String name) { data.get(data.indexOf(param)).setName(name); }
 
+    /**
+     * 
+     * @param param the Event that will be modified
+     * @param place the new place value
+     * 
+     * Sets the given parameter's place to the given value
+     */
     public void modifyPlace(Event param, String place) { data.get(data.indexOf(param)).setPlace(place); }
 
+    /**
+     * 
+     * @param param the Event that will be modified
+     * @param comment the new comment value
+     * 
+     * Sets the given parameter's comment to the given value
+     */
     public void modifyComment(Event param, String comment) { data.get(data.indexOf(param)).setComment(comment); }
 
+    /**
+     * 
+     * @return the number of past Events deleted
+     * 
+     * Deletes all the stored Events that have an end date that is smaller than the current time
+     */
     public int deletePastEvents() {
         int deletedNum = 0;
         LocalDateTime now = LocalDateTime.now();
@@ -48,6 +97,15 @@ public class Model{
         return deletedNum;
     }
 
+    /**
+     * 
+     * @param filename the file's name that we will write into
+     * @param r is used in order to create uniqe IDs when data is saved
+     * 
+     * Creates the .ics file format stated in the specification
+     * Sets the timezone to UTC+1
+     * unique ids -> v + r + - + idx where idx represents the given Event's place in the stored List
+     */
     public void write(String filename, int r){
         int runNum = r + 1;
         try{
@@ -63,6 +121,14 @@ public class Model{
         }catch(IOException e){ System.out.println("Sikertelen kiiratás."); }
     }
 
+    /**
+     * 
+     * @param filename the file that will be read
+     * @return the runNum that has been read from the given file (from PRODID line)
+     * 
+     * Reads the file that was given
+     * Should be the same format as the program creates as it reads exactly the same way as it writes (searializable data)
+     */
     public int read(String filename){
         clear();
         int runNum = 0;

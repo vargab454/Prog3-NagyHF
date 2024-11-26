@@ -11,6 +11,15 @@ public class Date {
 
     public Date() {}
 
+    /**
+     * @param y year
+     * @param m month
+     * @param d day
+     * @param h hour
+     * @param mi minute
+     * 
+     * Sets the stored variables to the given values
+     */
     public Date(int y, int m, int d, int h, int mi){
         year = y;
         month = m;
@@ -19,6 +28,13 @@ public class Date {
         minute = mi;
     }
 
+    /**
+     * 
+     * @param param the Date which we compare to
+     * @return -1 if the parameter is bigger
+     *         0 if the two Dates are the same
+     *         1 if the parameter is smaller
+     */
     public int compareTo(Date param){
         if(year == param.year && month == param.month && day == param.day && hour == param.hour && minute == param.minute) return 0;
         else if(year > param.year) return 1;
@@ -29,16 +45,29 @@ public class Date {
         else return -1;
     }
 
+    /**
+     * 
+     * @return true if the Date is a valid Date that exists
+     *         false if the Date is invalid
+     */
     public boolean isValid(){
         if((month == 4 || month == 6 || month == 9 || month == 11) && day == 31) return false;
         else if(month == 2 && isLeapYear() && (day == 30 || day == 31)) return false;
         else return !(month == 2 && !isLeapYear() && (day == 29 || day == 30 || day == 31));
     }
 
+    /**
+     * 
+     * @return true if the stored year value represents a leapyear, false otherwise
+     */
     public boolean isLeapYear(){
         return Year.of(year).isLeap();
     }
 
+    /**
+     * 
+     * @return returns a String that contains the represented date in yyyy.mm.dd hh:mm format (doesnt check year as it is going to be a 4 digit number throughout the run)
+     */
     public String toString(){
         String monthOut = "";
         String dayOut = "";
@@ -55,6 +84,10 @@ public class Date {
         return year + "." + monthOut + "." + dayOut + " " + hourOut + ":" + minuteOut;
     }
 
+    /**
+     * 
+     * @return returns a String that contains the represented date in yyyymmddThhmm00 format (doesnt check year as it is going to be a 4 digit number throughout the run)
+     */
     public String toFileFormatString(){
         String ret = "";
         ret += year;
@@ -79,6 +112,11 @@ public class Date {
         return ret;
     }
 
+    /**
+     * 
+     * @param param the String that we want to convert to Date
+     * @return the Date that the param represents (converts from yyyymmddThhmmss format)
+     */
     public Date toDate(String param){
         int myear = Integer.parseInt(param.substring(0, 4));
         int mmonth = Integer.parseInt(param.substring(4,6));

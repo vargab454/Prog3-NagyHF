@@ -38,6 +38,13 @@ public class AddMenu extends JFrame {
     private JComboBox<Integer> startMinute;
     private JComboBox<Integer> endMinute;
 
+    /**
+     * 
+     * @param m main menu, in order to be able to make it visible
+     * @param r runNum, this will be used in order to create uniqe IDs when data is saved
+     * 
+     * Creates the add event menu
+     */
     public AddMenu(Menu m, int r){
         super("Határidőnapló - Esemény felvétele");
         mainMenu = m;
@@ -170,10 +177,20 @@ public class AddMenu extends JFrame {
         add(panel);
     }
 
+    /**
+     * Makes the add event menu visible
+     */
     public void start() { setVisible(true); }
 
+    /**
+     * Makes the add event menu not visible
+     */
     public void close() { setVisible(false); }
 
+    /**
+     * Handles user input -> add option: creates Dates from items that have been selected in the JComboBoxes, calls controller's appropriate functions
+     *                    -> back option: makes the main menu visible, the add event menu not visible 
+     */
     private class AddActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event){

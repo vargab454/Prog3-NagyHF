@@ -24,18 +24,56 @@ public class Controller{
 
     public Controller(){ model = new Model(); }
 
+    /**
+     * 
+     * @param filename the file's name that we will write into
+     * @param runNum is used in order to create uniqe IDs when data is saved
+     * 
+     * Calls model's appropriate function with the given parameters
+     */
     public void writeModel(String filename, int runNum){ model.write(filename, runNum); }
 
+    /**
+     * 
+     * @param filename the file that we will read from
+     * @return the runNum that has been read from the given file (from PRODID line)
+     * 
+     * Calls model's appropriate function with the given parameters
+     */
     public int readModel(String filename){ return model.read(filename); }
 
+    /**
+     * 
+     * @return the number of Events currently stored in model
+     */
     public int getModelSize(){ return model.getData().size(); }
     
+    /**
+     * 
+     * @return true if the model is empty, false otherwise
+     */
     public boolean isEmpty() { return getModelSize() == 0; }
 
+    /**
+     * 
+     * @param param the Event that will be added to the stored List
+     * 
+     * Calls model's appropriate function with the given parameters
+     */
     public void addEventToModel(Event param){ model.addEvent(param); }
 
+    /**
+     * Clears model by calling it's clear function
+     */
     public void clearModel() { model.clear(); }
 
+    /**
+     * 
+     * @param param the Event that we want to get information about
+     * @return true if there is a stored element with the exact same data as the parameter, false otherwise
+     * 
+     * Checks all the stored Events if any are the same as the parameter
+     */
     public boolean isElementOfModel(Event param){
         for(Event event : model.getData()){
             if(event.isSame(param)) return true;
@@ -43,18 +81,38 @@ public class Controller{
         return false;
     }
 
+    /**
+     * 
+     * @return the number of Events deletes
+     * 
+     * Calls model's appropriate function
+     */
     public int deletePastEventsFromModel(){
         return model.deletePastEvents();
     }
 
+    /**
+     * 
+     * @param param the Event that will be deleted
+     * 
+     * Calls model's appropriate function with the given parameters
+     */
     public void deleteFromModel(Event param){
         model.delete(param);
     }
 
+    /**
+     * Sorts model based on Event's compareTo method
+     */
     public void sortData(){
         model.getData().sort(Event::compareTo);
     }
 
+    /**
+     * 
+     * @param name the program checks each Event if it contains this String or not
+     * @return all the Events that contain given String in the form of a List
+     */
     public List<Event> nameCompare(String name){
         List<Event> returnData = new LinkedList<>();
         for(Event event : model.getData()){
@@ -63,6 +121,11 @@ public class Controller{
         return returnData;
     }
 
+    /**
+     * 
+     * @param place the program checks each Event if it contains this String or not
+     * @return all the Events that contain given String in the form of a List
+     */
     public List<Event> placeCompare(String place){
         List<Event> returnData = new LinkedList<>();
         for(Event event : model.getData()){
@@ -71,6 +134,11 @@ public class Controller{
         return returnData;
     }
 
+    /**
+     * 
+     * @param comment the program checks each Event if it contains this String or not
+     * @return all the Events that contain given String in the form of a List
+     */
     public List<Event> commentCompare(String comment){
         List<Event> returnData = new LinkedList<>();
         for(Event event : model.getData()){
@@ -79,6 +147,11 @@ public class Controller{
         return returnData;
     }
 
+    /**
+     * 
+     * @param param an Event List that will be converted into a ShownEvent List
+     * @return the ShownEvent List
+     */
     public List<ShownEvent> toShownParameter(List<Event> param){
         List<ShownEvent> returnData = new LinkedList<>();
         for(Event event : param){
@@ -87,6 +160,10 @@ public class Controller{
         return returnData;
     }
 
+    /**
+     * 
+     * @return a ShownEvent List that contains the same information as the current data
+     */
     public List<ShownEvent> toShown(){
         List<ShownEvent> returnData = new LinkedList<>();
         for(Event event : model.getData()){
@@ -95,33 +172,12 @@ public class Controller{
         return returnData;
     }
 
-    public List<ShownEvent> toShownNameCompare(String name){
-        List<ShownEvent> returnData = new LinkedList<>();
-        for(Event event : model.getData()){
-            ShownEvent sEvent = event.toShownEvent();
-            if(sEvent.getName().contains(name)) returnData.add(sEvent);
-        }
-        return returnData;
-    }
-
-    public List<ShownEvent> toShownPlaceCompare(String place){
-        List<ShownEvent> returnData = new LinkedList<>();
-        for(Event event : model.getData()){
-            ShownEvent sEvent = event.toShownEvent();
-            if(sEvent.getPlace().contains(place)) returnData.add(sEvent);
-        }
-        return returnData;
-    }
-
-    public List<ShownEvent> toShownCommentCompare(String comment){
-        List<ShownEvent> returnData = new LinkedList<>();
-        for(Event event : model.getData()){
-            ShownEvent sEvent = event.toShownEvent();
-            if(sEvent.getComment().contains(comment)) returnData.add(sEvent);
-        }
-        return returnData;
-    }
-
+    /**
+     * 
+     * @param param1 a Date that the comparation will be based on
+     * @param param2 another Date that the comparation will be based on
+     * @return a List of ShownEvents that are running between the two Date values given as parameters
+     */
     public List<ShownEvent> toShownBetweenDates(Date param1, Date param2){
         List<ShownEvent> returnData = new LinkedList<>();
         for(Event event : model.getData()){
@@ -130,6 +186,12 @@ public class Controller{
         return returnData;
     }
 
+    /**
+     * 
+     * @param year the year values as int
+     * @param month the month value as int
+     * @return the last day of the month represented by the given parameters
+     */
     public int getMaxDay(int year, int month){
         if((month == 4 || month == 6 || month == 9 || month == 11) ) return 30;
         else if(month == 2 && Year.of(year).isLeap()) return 29;
@@ -137,6 +199,18 @@ public class Controller{
         else return 31;
     }
     
+    /**
+     * 
+     * @param start start Date of the new Event
+     * @param end end Date of the new Event
+     * @param name name of the new Event
+     * @param place place of the new Event
+     * @param comment comment given to the new Event
+     * 
+     * Checks if the given Date values are valid, if the start is before the end, if the end is after current time, if the Strings contain enters and if the new Event is already a part of the stored data
+     * If any of these are not ideal shows an error popup message
+     * Otherwise adds the new Event to the stored data
+     */
     public void addEventUI(Date start, Date end, String name, String place, String comment){
         Event newEvent = new Event(name, place, comment, start, end);
         Date now = new Date(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDateTime.now().getHour(), LocalDateTime.now().getMinute());
@@ -149,6 +223,13 @@ public class Controller{
         else addEventToModel(newEvent);
     }
 
+    /**
+     * 
+     * @param data the list that the table will consist of
+     * @return a JSCrollPane that contains the required table as well
+     * 
+     * Converts the parameter into a table, then adds it to a JScrollPane, sets some graphical parameters
+     */
     public JScrollPane toScrollableTable(List<ShownEvent> data){
         String[] columns = {"Név", "Helyszín", "Megjegyzés", "Kezdő időpont", "Befejezési időpont"};
         Object[][] tableData = new Object[data.size()][5];
@@ -173,6 +254,16 @@ public class Controller{
         return scroll;
     }
 
+    /**
+     * 
+     * @param correct a List of Events that have to be shown on the window
+     * @return the value that has been chosen (index of the chosen Event in the correct List)
+     * 
+     * Creates a JOptionPane with JRadioButtons that each represent an element of the correct List
+     * Gets user input as to which the user wants to modify/delete
+     * If not the OK option is selected returns invalid value
+     * Else returns the chosen index
+     */
     public int selectWindow(List<Event> correct){
         if(correct.isEmpty()){
             JOptionPane.showMessageDialog(null, "Nincs ilyen esemény!");
@@ -208,6 +299,14 @@ public class Controller{
         return idx;
     }
 
+    /**
+     * 
+     * @param runNum is used in order to create uniqe IDs when data is saved
+     * @param correct a List of Events that have to be given to selectWindow as a parameter
+     * 
+     * If selectWindow returns with a valid value a popup window is shown to get validation on the deletion of the chosen Event
+     * If yes option is chosen the Event will get deleted and the new data will be written into a file, otherwise nothing happens
+     */
     public void deleteSearched(int runNum, List<Event> correct){
         int idx = selectWindow(correct);
         if(idx != -1){
@@ -220,6 +319,14 @@ public class Controller{
         }
     }
 
+    /**
+     * 
+     * @param message message shown on the window
+     * @return the String that the user has given
+     * 
+     * Creates a popup window with a JTextField, where input can be written
+     * If yes option is chosen returns the given String, else returns an ivalid one
+     */
     public String getInput(String message){
         JPanel panel = new JPanel();
         JTextField textField = new JTextField(50);
@@ -229,6 +336,14 @@ public class Controller{
         return "InvalidInputGivenByUserFromUI";
     }
 
+    /**
+     * 
+     * @param runNum is used in order to create uniqe IDs when data is saved
+     * @param correct a List of Events that have to be given to selectWindow as a parameter
+     * @param modifiable which checkboxes have been selected
+     * 
+     * Gets user input on the fields selected and if yes option is selected modifies the appriopriate Event and writes the new stored data into a file 
+     */
     public void modifySearched(int runNum, List<Event> correct, boolean[] modifiable){
         int idx = selectWindow(correct);
         boolean modified = false;
@@ -255,26 +370,71 @@ public class Controller{
         }
     }
 
+    /**
+     * 
+     * @param name String that the correct parameter of modifySearched will be calculated with
+     * @param runNum is used in order to create uniqe IDs when data is saved
+     * @param modifiable which checkboxes have been selected
+     * 
+     * Calls modifySearched with the appropriate parameters
+     */
     public void modifyBasedOnName(String name, int runNum, boolean[] modifiable){
         modifySearched(runNum, nameCompare(name), modifiable);
     }
 
+    /**
+     * 
+     * @param place String that the correct parameter of modifySearched will be calculated with
+     * @param runNum is used in order to create uniqe IDs when data is saved
+     * @param modifiable which checkboxes have been selected
+     * 
+     * Calls modifySearched with the appropriate parameters
+     */
     public void modifyBasedOnPlace(String place, int runNum, boolean[] modifiable){
         modifySearched(runNum, placeCompare(place), modifiable);
     }
 
+    /**
+     * 
+     * @param comment String that the correct parameter of modifySearched will be calculated with
+     * @param runNum is used in order to create uniqe IDs when data is saved
+     * @param modifiable which checkboxes have been selected
+     * 
+     * Calls modifySearched with the appropriate parameters
+     */
     public void modifyBasedOnComment(String comment, int runNum, boolean[] modifiable){
         modifySearched(runNum, commentCompare(comment), modifiable);
     }
 
+    /**
+     * 
+     * @param name String that the correct parameter of deleteSearched will be calculated with
+     * @param runNum is used in order to create uniqe IDs when data is saved
+     * 
+     * Calls deleteSearched with the appropriate parameters
+     */
     public void deleteBasedOnName(String name, int runNum){
         deleteSearched(runNum, nameCompare(name));
     }
 
+    /**
+     * 
+     * @param place String that the correct parameter of deleteSearched will be calculated with
+     * @param runNum is used in order to create uniqe IDs when data is saved
+     * 
+     * Calls deleteSearched with the appropriate parameters
+     */
     public void deleteBasedOnPlace(String place, int runNum){
         deleteSearched(runNum, placeCompare(place));
     }
 
+    /**
+     * 
+     * @param comment String that the correct parameter of deleteSearched will be calculated with
+     * @param runNum is used in order to create uniqe IDs when data is saved
+     * 
+     * Calls deleteSearched with the appropriate parameters
+     */
     public void deleteBasedOnComment(String comment, int runNum){
         deleteSearched(runNum, commentCompare(comment));
     }

@@ -22,6 +22,12 @@ public class Menu extends JFrame {
     private Controller controller;
     private int runNum;
 
+    /**
+     * 
+     * @param r runNum, this will be used in order to create uniqe IDs when data is saved
+     * 
+     * Creates the main menu
+     */
     public Menu(int r){
         super("Határidőnapló");
         runNum = r;
@@ -74,10 +80,24 @@ public class Menu extends JFrame {
         add(panel);
     }
 
+    /**
+     * Makes the main menu visible
+     */
     public void start() { setVisible(true); }
 
+    /**
+     * Makes the main menu not visible
+     */
     public void close() { setVisible(false); }
 
+    /**
+     * Handles user input -> add option: makes add menu visible, main menu not visible
+     *                    -> modify option: makes modify menu visible, main menu not visible
+     *                    -> delete option: makes delete menu visible, main menu not visible
+     *                    -> search option: makes search menu visible, main menu not visible
+     *                    -> list option: makes list menu visible, main menu not visible
+     *                    -> exit option: saves data, closes program
+     */
     private class MenuActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event){

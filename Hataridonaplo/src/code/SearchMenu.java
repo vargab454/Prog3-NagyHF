@@ -22,6 +22,12 @@ public class SearchMenu extends JFrame {
 
     private JTextArea searchValue;
 
+    /**
+     * 
+     * @param m main menu, in order to be able to make it visible
+     * 
+     * Creates the search event menu
+     */
     public SearchMenu(Menu m){
         super("Határidőnapló - Esemény keresése");
         mainMenu = m;
@@ -79,22 +85,34 @@ public class SearchMenu extends JFrame {
         add(panel);
     }
 
+    /**
+     * Makes the search event menu visible
+     */
     public void start() { setVisible(true); }
 
+    /**
+     * Makes the search event menu not visible
+     */
     public void close() { setVisible(false); }
 
+    /**
+     * Handles user input -> name option: creates a table with the correct events with calling controllr's appropriate function
+     *                    -> place option: creates a table with the correct events with calling controllr's appropriate function
+     *                    -> comment option: creates a table with the correct events with calling controllr's appropriate function
+     *                    -> back option: makes the main menu visible, the search event menu not visible 
+     */
     private class SearchActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event){
             switch(event.getActionCommand()){
                 case "name":
-                    JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownNameCompare(searchValue.getText())), "Azon események, melyek neve tartalmazza a '" + searchValue.getText() + "'részletet", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownParameter(controller.nameCompare(searchValue.getText()))), "Azon események, melyek neve tartalmazza a '" + searchValue.getText() + "'részletet", JOptionPane.INFORMATION_MESSAGE);
                     break;
                 case "place":
-                JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownPlaceCompare(searchValue.getText())), "Azon események, melyek helyszíne tartalmazza a '" + searchValue.getText() + "' tagot", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownParameter(controller.placeCompare(searchValue.getText()))), "Azon események, melyek helyszíne tartalmazza a '" + searchValue.getText() + "' tagot", JOptionPane.INFORMATION_MESSAGE);
                     break;
                 case "comment":
-                    JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownCommentCompare(searchValue.getText())), "Azon események, melyek megjegyzése tartalmazza a '" + searchValue.getText() + "' tagot", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, controller.toScrollableTable(controller.toShownParameter(controller.commentCompare(searchValue.getText()))), "Azon események, melyek megjegyzése tartalmazza a '" + searchValue.getText() + "' tagot", JOptionPane.INFORMATION_MESSAGE);
                     break;
                 case "back":
                     close();

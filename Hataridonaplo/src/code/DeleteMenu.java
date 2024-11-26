@@ -24,6 +24,13 @@ public class DeleteMenu extends JFrame {
 
     private JTextArea searchValue;
 
+    /**
+     * 
+     * @param m main menu, in order to be able to make it visible
+     * @param r runNum, this will be used in order to create uniqe IDs when data is saved
+     * 
+     * Creates the delete event menu
+     */
     public DeleteMenu(Menu m, int r){
         super("Határidőnapló - Esemény törlése");
         mainMenu = m;
@@ -87,10 +94,23 @@ public class DeleteMenu extends JFrame {
         add(panel);
     }
 
+    /**
+     * Makes the delete event menu visible
+     */
     public void start() { setVisible(true); }
 
+    /**
+     * Makes the delete event menu not visible
+     */
     public void close() { setVisible(false); }
 
+    /**
+     * Handles user input -> name option: calls controller's appropriate function
+     *                    -> place option: calls controller's appropriate function
+     *                    -> comment option: calls controller's appropriate function
+     *                    -> past option: deletes past events, if none have been deleted states so in a popup message, else creates a poupu message that tells how many records have been deleted
+     *                    -> back option: makes the main menu visible, the delete event menu not visible 
+     */
     private class DeleteActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event){

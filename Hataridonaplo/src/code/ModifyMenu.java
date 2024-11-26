@@ -28,6 +28,13 @@ public class ModifyMenu extends JFrame {
     private JCheckBox modifyPlace;
     private JCheckBox modifyComment;
 
+    /**
+     * 
+     * @param m main menu, in order to be able to make it visible
+     * @param r runNum, this will be used in order to create uniqe IDs when data is saved
+     * 
+     * Creates the modify event menu
+     */
     public ModifyMenu(Menu m, int r){
         super("Határidőnapló - Esemény módosítása");
         mainMenu = m;
@@ -97,14 +104,29 @@ public class ModifyMenu extends JFrame {
         add(panel);
     }
 
+    /**
+     * Makes the modify event menu visible
+     */
     public void start() { setVisible(true); }
 
+    /**
+     * Makes the modify event menu not visible
+     */
     public void close() { setVisible(false); }
 
-    public void noneSelected() { if(!modifyName.isSelected() && !modifyPlace.isSelected() && !modifyComment.isSelected()) JOptionPane.showMessageDialog(null, "Egyik mező sincs kiválasztva módosításra!"); }
-
+    /** 
+     * If none of the JCheckBoxes have been selected returns true, otherwise returns false
+    */
     public boolean noneSelectedBooleanValue(){ return !modifyName.isSelected() && !modifyPlace.isSelected() && !modifyComment.isSelected(); }
 
+    /**
+     * If none of the JCheckBoxes have been selected shows error message
+     */
+    public void noneSelected() { if(noneSelectedBooleanValue()) JOptionPane.showMessageDialog(null, "Egyik mező sincs kiválasztva módosításra!"); }
+
+    /** 
+     * Returns the selected JCheckBoxes in the form of a boolean array
+    */
     public boolean[] getSelected() {
         boolean[] ret = new boolean[3];
         for(int i = 0; i < 3; i++) ret[i] = false;
@@ -114,6 +136,12 @@ public class ModifyMenu extends JFrame {
         return ret;
     }
 
+    /**
+     * Handles user input -> name option: calls noneSelected, if any have been selected calls controller's appropriate function
+     *                    -> place option: calls noneSelected, if any have been selected calls controller's appropriate function
+     *                    -> comment option: calls noneSelected, if any have been selected calls controller's appropriate function
+     *                    -> back option: makes the main menu visible, the modify event menu not visible 
+     */
     private class ModifyActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event){
