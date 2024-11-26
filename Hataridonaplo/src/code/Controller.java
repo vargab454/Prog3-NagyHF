@@ -242,7 +242,7 @@ public class Controller{
         cModel.getColumn(3).setPreferredWidth(120);
         cModel.getColumn(4).setPreferredWidth(120);
         JScrollPane scroll = new JScrollPane(table);
-        scroll.setPreferredSize(new Dimension(1000,800));
+        scroll.setPreferredSize(new Dimension(1000,600));
         return scroll;
     }
 
@@ -276,7 +276,7 @@ public class Controller{
         }
         buttons[0].setSelected(true);
         JScrollPane scroll = new JScrollPane(panel);
-        scroll.setPreferredSize(new Dimension(1000, 800));
+        scroll.setPreferredSize(new Dimension(1000, 600));
         int result = JOptionPane.showConfirmDialog(null, scroll, "Megtalált események (név; helyszín; megjegyzés; kezdet; befejezés)", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
         int idx = -1;
         if(result == JOptionPane.OK_OPTION){
